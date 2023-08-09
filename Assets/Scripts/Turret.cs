@@ -111,7 +111,7 @@ public class Turret : MonoBehaviour
     {
         range = Mathf.Max(1f, range);
         turnSpeed = Mathf.Max(1f, turnSpeed);
-        fireRate = Mathf.Max(1f, fireRate);
+        fireRate = Mathf.Max(0.1f, fireRate);
     }
 
     public void OnDrawGizmosSelected()

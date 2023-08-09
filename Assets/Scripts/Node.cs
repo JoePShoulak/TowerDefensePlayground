@@ -21,7 +21,7 @@ public class Node : MonoBehaviour
     {
         buildManager.lastHoveredNode = this;
 
-        if (EventSystem.current.IsPointerOverGameObject() || buildManager.GetTurretToBuild() == null)
+        if (EventSystem.current.IsPointerOverGameObject() || buildManager.TurretToBuild == null)
             return;
 
         if (turret == null)
@@ -45,7 +45,7 @@ public class Node : MonoBehaviour
         if (turret != null)
             return;
 
-        GameObject turretToBuild = buildManager.GetTurretToBuild();
+        GameObject turretToBuild = buildManager.TurretToBuild;
         if (turretToBuild == null)
             return;
 
@@ -57,7 +57,7 @@ public class Node : MonoBehaviour
     {
         Debug.Log("Turret Placed");
         turret = (GameObject)Instantiate(_turret, transform.position + turretOffset, transform.rotation);
-        buildManager.SetTurretToBuild(null);
+        buildManager.TurretToBuild = null;
     }
 
     // Main Stuff

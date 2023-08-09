@@ -6,7 +6,6 @@ public class BuildManager : MonoBehaviour
 {
     // Singleton pattern
     public static BuildManager instance;
-
     void Awake()
     {
         if (instance != null)
@@ -18,16 +17,13 @@ public class BuildManager : MonoBehaviour
     }
 
     public GameObject standardTurretPrefab;
+    public GameObject missileTurretPrefab;
     private GameObject turretToBuild;
 
-    public GameObject GetTurretToBuild()
+    public GameObject TurretToBuild
     {
-        return turretToBuild;
-    }
-
-    public void SetTurretToBuild(GameObject turret)
-    {
-        turretToBuild = turret;
+        get { return turretToBuild; }
+        set { turretToBuild = value; }
     }
 
     // FIXME: Probably shouldn't be in this class
