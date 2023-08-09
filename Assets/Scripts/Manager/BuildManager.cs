@@ -20,13 +20,20 @@ public class BuildManager : MonoBehaviour
     public GameObject standardTurretPrefab;
     private GameObject turretToBuild;
 
-    void Start()
-    {
-        turretToBuild = standardTurretPrefab;
-    }
-
     public GameObject GetTurretToBuild()
     {
         return turretToBuild;
+    }
+
+    public void SetTurretToBuild(GameObject turret)
+    {
+        turretToBuild = turret;
+    }
+
+    // FIXME: Probably shouldn't be in this class
+    public Node lastHoveredNode;
+    public void ResetLastHoveredNode()
+    {
+        lastHoveredNode.ResetRenderer();
     }
 }

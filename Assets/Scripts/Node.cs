@@ -1,10 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class Node : MonoBehaviour
 {
-    public Color hoverColor = Color.gray;
+    public Color hoverColor = Color.green;
+    public Color occupiedHoverColor = Color.red;
 
     public Vector3 turretOffset;
 
@@ -12,45 +14,57 @@ public class Node : MonoBehaviour
     private Color startingColor;
     private GameObject turret;
 
-    // Mouse Events
-    void OnMouseEnter()
+    BuildManager buildManager;
+
+    // Mouse Stuff
+    void OnMouseOver()
     {
-        rend.material.color = hoverColor;
+        buildManager.lastHoveredNode = this;
+
+        if (EventSystem.current.IsPointerOverGameObject() || buildManager.GetTurretToBuild() == null)
+            return;
+
+        if (turret == null)
+            rend.material.color = hoverColor;
+        else
+            rend.material.color = occupiedHoverColor;
+    }
+
+    public void ResetRenderer()
+    {
+        rend.material.color = startingColor;
     }
 
     void OnMouseExit()
     {
-        rend.material.color = startingColor;
+        ResetRenderer();
     }
 
     void OnMouseDown()
     {
         if (turret != null)
-        {
-            Debug.Log("Can't build there! - TODO: Add to UI");
             return;
-        }
 
-        BuildTurret();
+        GameObject turretToBuild = buildManager.GetTurretToBuild();
+        if (turretToBuild == null)
+            return;
+
+        BuildTurret(turretToBuild);
     }
 
     // Fun Stuff
-    void BuildTurret()
+    void BuildTurret(GameObject _turret)
     {
-        GameObject turretToBuild = BuildManager.instance.GetTurretToBuild();
-        turret = (GameObject)Instantiate(turretToBuild, transform.position + turretOffset, transform.rotation);
+        Debug.Log("Turret Placed");
+        turret = (GameObject)Instantiate(_turret, transform.position + turretOffset, transform.rotation);
+        buildManager.SetTurretToBuild(null);
     }
 
-    // Start is called before the first frame update
+    // Main Stuff
     void Start()
     {
+        buildManager = BuildManager.instance;
         rend = GetComponent<Renderer>();
         startingColor = rend.material.color;
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
     }
 }
