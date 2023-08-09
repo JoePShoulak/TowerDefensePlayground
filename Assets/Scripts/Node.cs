@@ -21,13 +21,10 @@ public class Node : MonoBehaviour
     {
         buildManager.lastHoveredNode = this;
 
-        if (EventSystem.current.IsPointerOverGameObject() || buildManager.TurretToBuild == null)
-            return;
+        if (EventSystem.current.IsPointerOverGameObject() || buildManager.TurretToBuild == null) return;
 
-        if (turret == null)
-            rend.material.color = hoverColor;
-        else
-            rend.material.color = occupiedHoverColor;
+        if (turret == null) rend.material.color = hoverColor;
+        else rend.material.color = occupiedHoverColor;
     }
 
     public void ResetRenderer()
@@ -42,12 +39,10 @@ public class Node : MonoBehaviour
 
     void OnMouseDown()
     {
-        if (turret != null)
-            return;
+        if (turret != null) return;
 
         GameObject turretToBuild = buildManager.TurretToBuild;
-        if (turretToBuild == null)
-            return;
+        if (turretToBuild == null) return;
 
         BuildTurret(turretToBuild);
     }

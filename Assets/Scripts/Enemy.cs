@@ -11,18 +11,12 @@ public class Enemy : MonoBehaviour
 
     public float DistanceToTarget
     {
-        get
-        {
-            return targetDelta.magnitude;
-        }
+        get { return targetDelta.magnitude; }
     }
 
     public int Waypoint
     {
-        get
-        {
-            return waypointIndex;
-        }
+        get { return waypointIndex; }
     }
 
     void TargetNextWaypoint()
@@ -51,10 +45,8 @@ public class Enemy : MonoBehaviour
 
         if (targetDelta.magnitude < waypointDetectionRadius)
         {
-            if (waypointIndex < Waypoints.waypoints.Count)
-                TargetNextWaypoint();
-            else
-                Die();
+            if (waypointIndex < Waypoints.waypoints.Count) TargetNextWaypoint();
+            else Die();
         }
 
         Move();

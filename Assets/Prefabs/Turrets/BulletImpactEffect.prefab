@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 7276144368462139384}
   - component: {fileID: 2812199177846489391}
   m_Layer: 0
-  m_Name: ProjectileImpactEffect
+  m_Name: BulletImpactEffect
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

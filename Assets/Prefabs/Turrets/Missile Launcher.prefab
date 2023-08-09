@@ -201,7 +201,7 @@ MonoBehaviour:
   updatesPerSecond: 1
   aimTransform: {fileID: 3396729874308055139}
   muzzle: {fileID: 4116959750596531082}
-  projectilePrefab: {fileID: 8800832178109680821, guid: 7c4ece5147db8e948bc562012c3efed8, type: 3}
+  projectilePrefab: {fileID: 5012624284004928422, guid: 85f534a1358a4d245a9dec35ca75b6ca, type: 3}
 --- !u!1 &8595028495482608238
 GameObject:
   m_ObjectHideFlags: 0

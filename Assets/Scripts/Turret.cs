@@ -38,8 +38,7 @@ public class Turret : MonoBehaviour
         foreach (GameObject enemy in enemies)
         {
             float distanceToEnemy = DistanceTo(enemy);
-            if (distanceToEnemy < range)
-                enemiesInRange.Add(enemy);
+            if (distanceToEnemy < range) enemiesInRange.Add(enemy);
         }
 
         return enemiesInRange;
@@ -78,8 +77,7 @@ public class Turret : MonoBehaviour
         GameObject projectileObj = (GameObject)Instantiate(projectilePrefab, muzzle.position, muzzle.rotation);
         Projectile projectile = projectileObj.GetComponent<Projectile>();
 
-        if (projectile == null)
-            return;
+        if (projectile == null) return;
 
         projectile.Seek(target);
     }

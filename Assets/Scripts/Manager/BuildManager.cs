@@ -30,6 +30,7 @@ public class BuildManager : MonoBehaviour
     public Node lastHoveredNode;
     public void ResetLastHoveredNode()
     {
+        if (lastHoveredNode == null) return;
         lastHoveredNode.ResetRenderer();
     }
 }
