@@ -30,6 +30,8 @@ public class Node : MonoBehaviour
             Debug.Log("Can't build there! - TODO: Add to UI");
             return;
         }
+
+        BuildTurret();
     }
 
     // Fun Stuff
