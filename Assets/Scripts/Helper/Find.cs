@@ -31,10 +31,7 @@ public static class Find
         foreach (GameObject enemyObject in enemies)
         {
             Enemy enemy = enemyObject.GetComponent<Enemy>();
-            if (enemy == null)
-            {
-                break;
-            }
+            if (enemy == null) break;
 
             float dist = enemy.DistanceToTarget;
             if (enemy.Waypoint > highestWaypoint)

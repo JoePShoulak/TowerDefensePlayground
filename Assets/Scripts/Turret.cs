@@ -20,6 +20,7 @@ public class Turret : MonoBehaviour
 
     [Header("Using Laser")] // TODO: Make an editor file for this
     public int damageOverTime = 1;
+    public float slowAmount = 0.5f;
     public LineRenderer laserBeam;
     public ParticleSystem impactEffect;
     public Light impactLight;
@@ -130,6 +131,7 @@ public class Turret : MonoBehaviour
         if (!laserBeam.enabled) ActivateLaser();
 
         targetedEnemy.TakeDamage(damageOverTime * Time.deltaTime);
+        targetedEnemy.Slow(slowAmount);
     }
 
     void DeactivateLaser()

@@ -27,13 +27,13 @@ public class BuildManager : MonoBehaviour
         set { turretToBuild = value; }
     }
 
-    public bool CanAffordTurret { get { return PlayerStats.Money >= turretToBuild.cost; } }
+    public bool CanAffordTurret { get { return Player.Money >= turretToBuild.cost; } }
 
     public void BuildTurretOn(Node node)
     {
         if (!CanAffordTurret) return;
 
-        PlayerStats.Money -= turretToBuild.cost;
+        Player.Money -= turretToBuild.cost;
         EffectManager.Spawn(2f, buildEffect, node.BuildPosition + buildEffectOffset);
         node.turret = (GameObject)Instantiate(turretToBuild.prefab, node.BuildPosition, Quaternion.identity);
         turretToBuild = null;

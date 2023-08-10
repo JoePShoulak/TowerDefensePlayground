@@ -12,7 +12,7 @@ public class GameManager : MonoBehaviour
     {
         if (GameEnded) return;
 
-        if (PlayerStats.Lives <= 0)
+        if (Player.Lives <= 0)
         {
             GameEnded = true;
             Debug.Log("Game Over!");
