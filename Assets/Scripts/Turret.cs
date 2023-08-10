@@ -3,14 +3,23 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public enum TargetMode { ClosestToSelf, ClosestToEnd, ClosestToStart };
+public enum AttackMethod { Projectile, Laser };
 
 public class Turret : MonoBehaviour
 {
     [Header("Attributes")]
     public float range = 15f;
+    public AttackMethod method = AttackMethod.Projectile;
+
+    [Header("Use Bullets (default)")]
     public float fireRate = 1f;
     private float fireCountdown = 0f;
     public float turnSpeed = 3f;
+    public GameObject projectilePrefab;
+
+    [Header("Use Laser")] // TODO: Make an editor file for this
+    public LineRenderer laserBeam;
+
     public TargetMode targetMode = TargetMode.ClosestToSelf;
 
     [Header("Misc")]
@@ -19,7 +28,6 @@ public class Turret : MonoBehaviour
     public int updatesPerSecond = 1;
     public Transform aimTransform;
     public Transform muzzle;
-    public GameObject projectilePrefab;
 
     private GameObject target;
 
@@ -74,12 +82,36 @@ public class Turret : MonoBehaviour
 
     public void FireAtTarget()
     {
-        GameObject projectileObj = (GameObject)Instantiate(projectilePrefab, muzzle.position, muzzle.rotation);
-        Projectile projectile = projectileObj.GetComponent<Projectile>();
+        if (method == AttackMethod.Laser) ActivateLaser();
+        else FireProjectile();
+    }
 
-        if (projectile == null) return;
+    public void ActivateLaser()
+    {
+        if (!laserBeam.enabled) laserBeam.enabled = true;
 
-        projectile.Seek(target);
+        laserBeam.SetPosition(0, muzzle.position);
+        laserBeam.SetPosition(1, target.transform.position);
+    }
+
+    public void DeactivateLaser()
+    {
+        laserBeam.enabled = false;
+    }
+
+    public void FireProjectile()
+    {
+        if (fireCountdown <= 0f)
+        {
+            fireCountdown = 1f / fireRate;
+
+            GameObject projectileObj = (GameObject)Instantiate(projectilePrefab, muzzle.position, muzzle.rotation);
+            Projectile projectile = projectileObj.GetComponent<Projectile>();
+
+            if (projectile == null) return;
+
+            projectile.Seek(target);
+        }
     }
 
     // Main Stuff
@@ -95,12 +127,11 @@ public class Turret : MonoBehaviour
         if (target != null)
         {
             AimAtTarget();
-
-            if (fireCountdown <= 0f)
-            {
-                FireAtTarget();
-                fireCountdown = 1f / fireRate;
-            }
+            FireAtTarget();
+        }
+        else if (method == AttackMethod.Laser)
+        {
+            DeactivateLaser();
         }
     }
 

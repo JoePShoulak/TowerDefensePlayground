@@ -8,6 +8,7 @@ public class Shop : MonoBehaviour
 
     public TurretBlueprint standardTurret;
     public TurretBlueprint missileLauncher;
+    public TurretBlueprint laserBeamer;
 
     void Start()
     {
@@ -26,9 +27,16 @@ public class Shop : MonoBehaviour
         buildManager.TurretToBuild = missileLauncher;
     }
 
+    public void SelectLaserBeamer()
+    {
+        Debug.Log("Laser Beamer Selected");
+        buildManager.TurretToBuild = laserBeamer;
+    }
+
     public void OnValidate()
     {
         standardTurret.cost = Mathf.RoundToInt(Mathf.Max(0f, (float)standardTurret.cost));
         missileLauncher.cost = Mathf.RoundToInt(Mathf.Max(0f, (float)missileLauncher.cost));
+        laserBeamer.cost = Mathf.RoundToInt(Mathf.Max(0f, (float)laserBeamer.cost));
     }
 }
