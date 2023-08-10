@@ -6,6 +6,9 @@ public class BuildManager : MonoBehaviour
 {
     // Singleton pattern
     public static BuildManager instance;
+
+    public GameObject buildEffect;
+    public Vector3 buildEffectOffset;
     void Awake()
     {
         if (instance != null)
@@ -30,6 +33,8 @@ public class BuildManager : MonoBehaviour
     {
         if (!CanAffordTurret) return;
 
+        GameObject effect = (GameObject)Instantiate(buildEffect, node.BuildPosition + buildEffectOffset, transform.rotation);
+        Destroy(effect, 2f);
         PlayerStats.Money -= turretToBuild.cost;
         node.turret = (GameObject)Instantiate(turretToBuild.prefab, node.BuildPosition, Quaternion.identity);
         turretToBuild = null;

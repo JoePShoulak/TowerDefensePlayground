@@ -12462,6 +12462,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f17270ac7d6e9e4b961d75c9b826345, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  buildEffect: {fileID: 2618578290718340571, guid: a42260f0b4a39ea439ce678362ae41d9, type: 3}
   lastHoveredNode: {fileID: 0}
 --- !u!114 &1524308638
 MonoBehaviour:
