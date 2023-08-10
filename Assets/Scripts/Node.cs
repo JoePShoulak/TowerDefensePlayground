@@ -5,17 +5,20 @@ using UnityEngine.EventSystems;
 
 public class Node : MonoBehaviour
 {
-    public Color hoverColor = Color.green;
-    public Color occupiedHoverColor = Color.red;
+    public Color canBuildColor = Color.green;
+    public Color cannotBuildColor = Color.red;
 
     public Vector3 turretOffset;
 
-    private Renderer rend;
-    private Color startingColor;
     [Header("Optional")]
     public GameObject turret;
 
+    private Renderer rend;
+    private Color startingColor;
+
     BuildManager buildManager;
+
+    public Vector3 BuildPosition { get { return transform.position + turretOffset; } }
 
     // Mouse Stuff
     void OnMouseOver()
@@ -24,8 +27,8 @@ public class Node : MonoBehaviour
 
         if (EventSystem.current.IsPointerOverGameObject() || buildManager.TurretToBuild == null) return;
 
-        if (turret == null) rend.material.color = hoverColor;
-        else rend.material.color = occupiedHoverColor;
+        if (turret == null && buildManager.CanAffordTurret) rend.material.color = canBuildColor;
+        else rend.material.color = cannotBuildColor;
     }
 
     public void ResetRenderer()
@@ -40,14 +43,10 @@ public class Node : MonoBehaviour
 
     void OnMouseDown()
     {
-        if (turret != null) return;
-
-        GameObject turretToBuild = buildManager.TurretToBuild.prefab;
-        if (turretToBuild == null) return;
+        if (turret != null || buildManager.TurretToBuild == null) return;
 
         buildManager.BuildTurretOn(this);
     }
-
 
     // Main Stuff
     void Start()

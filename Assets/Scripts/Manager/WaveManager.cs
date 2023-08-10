@@ -42,7 +42,7 @@ public class WaveManager : MonoBehaviour
 
         if (!spawning)
         {
-            waveTimer.text = Mathf.Ceil(countdown).ToString();
+            waveTimer.text = string.Format("{0:00.00}", countdown);
             countdown -= Time.deltaTime;
         }
     }
