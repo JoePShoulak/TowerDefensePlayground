@@ -19,11 +19,7 @@ public class Turret : MonoBehaviour
     public GameObject projectilePrefab;
 
     [Header("Using Laser")] // TODO: Make an editor file for this
-    public int damageOverTime = 1;
-    public float slowAmount = 0.5f;
-    public LineRenderer laserBeam;
-    public ParticleSystem impactEffect;
-    public Light impactLight;
+    public Laser laser;
 
     [Header("Misc")]
     public string enemyTag = "Enemy";
@@ -94,51 +90,21 @@ public class Turret : MonoBehaviour
         aimTransform.rotation = Quaternion.Euler(0f, rotationE.y, 0f);
     }
 
-    void UpdateLaserBeam()
-    {
-        Vector3 dir = muzzle.position - target.transform.position;
 
-        laserBeam.SetPosition(0, muzzle.position);
-        laserBeam.SetPosition(1, target.transform.position);
-        impactEffect.transform.position = target.transform.position + dir.normalized;
-        impactEffect.transform.rotation = Quaternion.LookRotation(dir);
-    }
 
     void AimAtTarget()
     {
         RotateTurret();
 
-        if (method == AttackMethod.Laser) UpdateLaserBeam();
+        if (method == AttackMethod.Laser) laser.AimBeam(muzzle, target);
     }
 
     void FireAtTarget()
     {
         AimAtTarget();
 
-        if (method == AttackMethod.Laser) FireLaser();
+        if (method == AttackMethod.Laser) laser.Fire(targetedEnemy);
         else FireProjectile();
-    }
-
-    void ActivateLaser()
-    {
-        laserBeam.enabled = true;
-        impactLight.enabled = true;
-        impactEffect.Play();
-    }
-
-    void FireLaser()
-    {
-        if (!laserBeam.enabled) ActivateLaser();
-
-        targetedEnemy.TakeDamage(damageOverTime * Time.deltaTime);
-        targetedEnemy.Slow(slowAmount);
-    }
-
-    void DeactivateLaser()
-    {
-        laserBeam.enabled = false;
-        impactLight.enabled = false;
-        impactEffect.Stop();
     }
 
     void FireProjectile()
@@ -166,7 +132,7 @@ public class Turret : MonoBehaviour
         fireCountdown -= Time.deltaTime;
 
         if (target != null) FireAtTarget();
-        else if (method == AttackMethod.Laser) DeactivateLaser();
+        else if (method == AttackMethod.Laser) laser.Deactivate();
     }
 
     // Boring Stuff
@@ -175,7 +141,6 @@ public class Turret : MonoBehaviour
         range = Mathf.Max(1f, range);
         turnSpeed = Mathf.Max(1f, turnSpeed);
         fireRate = Mathf.Max(0.1f, fireRate);
-        damageOverTime = (int)Mathf.Max(1, damageOverTime);
     }
 
     public void OnDrawGizmosSelected()
