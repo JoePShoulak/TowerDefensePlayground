@@ -10,17 +10,18 @@ public class Turret : MonoBehaviour
     [Header("Attributes")]
     public float range = 15f;
     public AttackMethod method = AttackMethod.Projectile;
+    public TargetMode targetMode = TargetMode.ClosestToSelf;
 
-    [Header("Use Bullets (default)")]
+    [Header("Using Bullets (default)")]
     public float fireRate = 1f;
     private float fireCountdown = 0f;
     public float turnSpeed = 3f;
     public GameObject projectilePrefab;
 
-    [Header("Use Laser")] // TODO: Make an editor file for this
+    [Header("Using Laser")] // TODO: Make an editor file for this
     public LineRenderer laserBeam;
-
-    public TargetMode targetMode = TargetMode.ClosestToSelf;
+    public ParticleSystem impactEffect;
+    public Light impactLight;
 
     [Header("Misc")]
     public string enemyTag = "Enemy";
@@ -32,13 +33,10 @@ public class Turret : MonoBehaviour
     private GameObject target;
 
     // Helper
-    public float DistanceTo(GameObject enemy)
-    {
-        return (transform.position - enemy.transform.position).magnitude;
-    }
+    float DistanceTo(GameObject enemy) { return (transform.position - enemy.transform.position).magnitude; }
 
     // Interesting Stuff
-    public List<GameObject> GetEnemiesInRange()
+    List<GameObject> GetEnemiesInRange()
     {
         List<GameObject> enemies = new List<GameObject>(GameObject.FindGameObjectsWithTag(enemyTag));
         List<GameObject> enemiesInRange = new List<GameObject>();
@@ -52,7 +50,7 @@ public class Turret : MonoBehaviour
         return enemiesInRange;
     }
 
-    public void UpdateTarget()
+    void UpdateTarget()
     {
         List<GameObject> enemiesInRange = GetEnemiesInRange();
         switch (targetMode)
@@ -72,7 +70,7 @@ public class Turret : MonoBehaviour
         }
     }
 
-    public void AimAtTarget()
+    void RotateTurret()
     {
         Vector3 dir = target.transform.position - transform.position;
         Quaternion rotationQ = Quaternion.LookRotation(dir);
@@ -80,38 +78,65 @@ public class Turret : MonoBehaviour
         aimTransform.rotation = Quaternion.Euler(0f, rotationE.y, 0f);
     }
 
-    public void FireAtTarget()
+    void UpdateLaserBeam()
     {
-        if (method == AttackMethod.Laser) ActivateLaser();
+        Vector3 tP = target.transform.position;
+
+        laserBeam.SetPosition(0, muzzle.position);
+        laserBeam.SetPosition(1, tP);
+
+        Vector3 dir = muzzle.position - tP;
+
+        impactEffect.transform.position = tP + dir.normalized;
+        impactEffect.transform.rotation = Quaternion.LookRotation(dir);
+    }
+
+    void AimAtTarget()
+    {
+        RotateTurret();
+
+        if (method == AttackMethod.Laser) UpdateLaserBeam();
+    }
+
+    void FireAtTarget()
+    {
+        AimAtTarget();
+
+        if (method == AttackMethod.Laser) FireLaser();
         else FireProjectile();
     }
 
-    public void ActivateLaser()
+    void ActivateLaser()
     {
-        if (!laserBeam.enabled) laserBeam.enabled = true;
-
-        laserBeam.SetPosition(0, muzzle.position);
-        laserBeam.SetPosition(1, target.transform.position);
+        laserBeam.enabled = true;
+        impactLight.enabled = true;
+        impactEffect.Play();
     }
 
-    public void DeactivateLaser()
+    void FireLaser()
+    {
+        if (!laserBeam.enabled) ActivateLaser();
+    }
+
+    void DeactivateLaser()
     {
         laserBeam.enabled = false;
+        impactLight.enabled = false;
+        impactEffect.Stop();
     }
 
-    public void FireProjectile()
+    void FireProjectile()
     {
-        if (fireCountdown <= 0f)
-        {
-            fireCountdown = 1f / fireRate;
+        if (fireCountdown > 0f) return;
 
-            GameObject projectileObj = (GameObject)Instantiate(projectilePrefab, muzzle.position, muzzle.rotation);
-            Projectile projectile = projectileObj.GetComponent<Projectile>();
+        fireCountdown = 1f / fireRate;
 
-            if (projectile == null) return;
+        GameObject projectileObj = (GameObject)Instantiate(projectilePrefab, muzzle.position, muzzle.rotation);
+        Projectile projectile = projectileObj.GetComponent<Projectile>();
 
-            projectile.Seek(target);
-        }
+        if (projectile == null) return;
+
+        projectile.Seek(target);
     }
 
     // Main Stuff
@@ -124,15 +149,8 @@ public class Turret : MonoBehaviour
     {
         fireCountdown -= Time.deltaTime;
 
-        if (target != null)
-        {
-            AimAtTarget();
-            FireAtTarget();
-        }
-        else if (method == AttackMethod.Laser)
-        {
-            DeactivateLaser();
-        }
+        if (target != null) FireAtTarget();
+        else if (method == AttackMethod.Laser) DeactivateLaser();
     }
 
     // Boring Stuff
