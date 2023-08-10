@@ -47,11 +47,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 21d283d9b0f717947bbbf33076ed4b3b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  range: 45
+  range: 20
+  method: 1
   fireRate: 1
   turnSpeed: 3
   projectilePrefab: {fileID: 0}
-  useLaser: 0
   laserBeam: {fileID: 869079648022361143}
   targetMode: 0
   enemyTag: Enemy
@@ -101,8 +101,8 @@ LineRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Positions:
-  - {x: 0, y: 1.8, z: 0}
-  - {x: 0, y: 1.8, z: 45}
+  - {x: 0, y: 0, z: 0}
+  - {x: 0, y: 0, z: 0}
   m_Parameters:
     serializedVersion: 3
     widthMultiplier: 1
@@ -110,35 +110,8 @@ LineRenderer:
       serializedVersion: 2
       m_Curve:
       - serializedVersion: 3
-        time: 0
-        value: 0.46665955
-        inSlope: 35.976044
-        outSlope: 35.976044
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0.115380794
-      - serializedVersion: 3
-        time: 0.08387375
-        value: 0.9703724
-        inSlope: -2.3582866
-        outSlope: -2.3582866
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 1
-        outWeight: 0.33333334
-      - serializedVersion: 3
-        time: 0.91290325
-        value: 0.6148148
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0
-      - serializedVersion: 3
-        time: 1
-        value: 0
+        time: 0.735487
+        value: 0.2222293
         inSlope: 0
         outSlope: 0
         tangentMode: 0
