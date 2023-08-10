@@ -54,7 +54,7 @@ MonoBehaviour:
   projectilePrefab: {fileID: 0}
   laser: {fileID: 7732857012870845206}
   enemyTag: Enemy
-  updatesPerSecond: 1
+  updatesPerSecond: 2
   aimTransform: {fileID: 8431091654146585804}
   muzzle: {fileID: 6033283203812711291}
 --- !u!1 &2137357756681242461

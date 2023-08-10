@@ -17,7 +17,6 @@ public class WaveManager : MonoBehaviour
     private int prevEnemyCount = 0;
     private int enemyCount = 1;
 
-
     void Awake()
     {
         spawnLocation = GameObject.FindGameObjectWithTag("Spawn").transform;
@@ -25,12 +24,11 @@ public class WaveManager : MonoBehaviour
 
     void IncreaseEnemies()
     {
-        if (enemyCount < 21)
-        {
-            int temp = enemyCount;
-            enemyCount += prevEnemyCount;
-            prevEnemyCount = temp;
-        }
+        int temp = enemyCount;
+        enemyCount += prevEnemyCount;
+        prevEnemyCount = temp;
+
+        timeBetweenEnemies = 1f - Mathf.Log(Player.RoundsSurvived + 0.01f) / 3;
     }
 
     void Update()
