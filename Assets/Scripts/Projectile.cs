@@ -7,6 +7,7 @@ public class Projectile : MonoBehaviour
     private GameObject target;
 
     public float speed = 70f;
+    public int damage = 1;
     public float explosionRadius = 0f;
     public GameObject impactEffectPrefab;
 
@@ -15,10 +16,15 @@ public class Projectile : MonoBehaviour
         target = _target;
     }
 
-    void DamageEnemy(GameObject enemy)
+    void DamageEnemy(GameObject enemyObj)
     {
-        Destroy(enemy);
+        Enemy enemy = enemyObj.GetComponent<Enemy>();
+
+        if (enemy == null) return;
+
+        enemy.TakeDamage(damage);
     }
+
     void Explode()
     {
         List<Collider> hitColliders = new List<Collider>(Physics.OverlapSphere(transform.position, explosionRadius));
@@ -30,19 +36,10 @@ public class Projectile : MonoBehaviour
 
     void HitTarget()
     {
-        GameObject effect = (GameObject)Instantiate(impactEffectPrefab, transform.position, transform.rotation);
+        if (explosionRadius > 0f) Explode();
+        else DamageEnemy(target);
 
-        if (explosionRadius > 0f)
-        {
-            // Damage all in range
-            Explode();
-        }
-        {
-            // Damage one enemy
-            DamageEnemy(target);
-        }
-
-        Destroy(effect, 2f);
+        EffectManager.Spawn(2f, impactEffectPrefab, transform.position);
         Destroy(gameObject);
         return;
     }
@@ -68,6 +65,7 @@ public class Projectile : MonoBehaviour
     {
         explosionRadius = Mathf.Max(0f, explosionRadius);
         speed = Mathf.Max(0f, speed);
+        damage = (int)Mathf.Max(1f, damage);
     }
 
     public void OnDrawGizmosSelected()

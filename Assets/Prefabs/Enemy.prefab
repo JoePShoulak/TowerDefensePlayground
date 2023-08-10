@@ -120,3 +120,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 10
   waypointDetectionRadius: 1
+  damage: 1
+  health: 1
+  value: 1
+  deathEffect: {fileID: 5802556129155454698, guid: 9f5bbb1c87444ea428d160f24071b576, type: 3}
