@@ -7,7 +7,7 @@ public class Projectile : MonoBehaviour
     private GameObject target;
 
     public float speed = 70f;
-    public int damage = 1;
+    public float damage = 1;
     public float explosionRadius = 0f;
     public GameObject impactEffectPrefab;
 
@@ -65,7 +65,7 @@ public class Projectile : MonoBehaviour
     {
         explosionRadius = Mathf.Max(0f, explosionRadius);
         speed = Mathf.Max(0f, speed);
-        damage = (int)Mathf.Max(1f, damage);
+        damage = Mathf.Max(0.1f, damage);
     }
 
     public void OnDrawGizmosSelected()

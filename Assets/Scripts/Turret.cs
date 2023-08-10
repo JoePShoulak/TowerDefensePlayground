@@ -19,6 +19,7 @@ public class Turret : MonoBehaviour
     public GameObject projectilePrefab;
 
     [Header("Using Laser")] // TODO: Make an editor file for this
+    public int damageOverTime = 1;
     public LineRenderer laserBeam;
     public ParticleSystem impactEffect;
     public Light impactLight;
@@ -31,6 +32,7 @@ public class Turret : MonoBehaviour
     public Transform muzzle;
 
     private GameObject target;
+    private Enemy targetedEnemy;
 
     // Helper
     float DistanceTo(GameObject enemy) { return (transform.position - enemy.transform.position).magnitude; }
@@ -50,22 +52,35 @@ public class Turret : MonoBehaviour
         return enemiesInRange;
     }
 
+    void SetTarget(GameObject _target)
+    {
+        if (_target == null)
+        {
+            target = null;
+            targetedEnemy = null;
+            return;
+        }
+
+        target = _target;
+        targetedEnemy = target.GetComponent<Enemy>();
+    }
+
     void UpdateTarget()
     {
         List<GameObject> enemiesInRange = GetEnemiesInRange();
         switch (targetMode)
         {
             case TargetMode.ClosestToSelf:
-                target = Find.ClosestToTransform(enemiesInRange, transform);
+                SetTarget(Find.ClosestToTransform(enemiesInRange, transform));
                 break;
             case TargetMode.ClosestToEnd:
-                target = Find.ClosestToEnd(enemiesInRange);
+                SetTarget(Find.ClosestToEnd(enemiesInRange));
                 break;
             case TargetMode.ClosestToStart:
-                target = Find.ClosestToStart(enemiesInRange);
+                SetTarget(Find.ClosestToStart(enemiesInRange));
                 break;
             default:
-                target = null;
+                SetTarget(null);
                 break;
         }
     }
@@ -80,14 +95,11 @@ public class Turret : MonoBehaviour
 
     void UpdateLaserBeam()
     {
-        Vector3 tP = target.transform.position;
+        Vector3 dir = muzzle.position - target.transform.position;
 
         laserBeam.SetPosition(0, muzzle.position);
-        laserBeam.SetPosition(1, tP);
-
-        Vector3 dir = muzzle.position - tP;
-
-        impactEffect.transform.position = tP + dir.normalized;
+        laserBeam.SetPosition(1, target.transform.position);
+        impactEffect.transform.position = target.transform.position + dir.normalized;
         impactEffect.transform.rotation = Quaternion.LookRotation(dir);
     }
 
@@ -116,6 +128,8 @@ public class Turret : MonoBehaviour
     void FireLaser()
     {
         if (!laserBeam.enabled) ActivateLaser();
+
+        targetedEnemy.TakeDamage(damageOverTime * Time.deltaTime);
     }
 
     void DeactivateLaser()
@@ -159,6 +173,7 @@ public class Turret : MonoBehaviour
         range = Mathf.Max(1f, range);
         turnSpeed = Mathf.Max(1f, turnSpeed);
         fireRate = Mathf.Max(0.1f, fireRate);
+        damageOverTime = (int)Mathf.Max(1, damageOverTime);
     }
 
     public void OnDrawGizmosSelected()

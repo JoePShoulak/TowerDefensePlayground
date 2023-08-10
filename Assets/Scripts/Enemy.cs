@@ -5,7 +5,7 @@ public class Enemy : MonoBehaviour
     public float speed = 10f;
     public float waypointDetectionRadius = 1f;
     public int damage = 1;
-    public int health = 1;
+    public float health = 1f;
     public int value = 1;
     public GameObject deathEffect;
 
@@ -48,10 +48,10 @@ public class Enemy : MonoBehaviour
         return;
     }
 
-    public void TakeDamage(int damage)
+    public void TakeDamage(float damage)
     {
         health -= damage;
-        if (health <= 0) Die();
+        if (health <= 0f) Die();
     }
 
     void Start()
