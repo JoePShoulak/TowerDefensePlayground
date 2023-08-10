@@ -17,6 +17,7 @@ public class WaveManager : MonoBehaviour
     private int prevEnemyCount = 0;
     private int enemyCount = 1;
 
+
     void Awake()
     {
         spawnLocation = GameObject.FindGameObjectWithTag("Spawn").transform;
@@ -54,6 +55,8 @@ public class WaveManager : MonoBehaviour
 
     IEnumerator SpawnWave()
     {
+        Player.RoundsSurvived++;
+
         waveTimer.text = "";
         spawning = true;
         for (int i = 0; i < enemyCount; i++)

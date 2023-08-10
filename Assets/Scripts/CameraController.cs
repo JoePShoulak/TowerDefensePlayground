@@ -13,6 +13,8 @@ public class CameraController : MonoBehaviour
 
     void Update()
     {
+        if (GameManager.GameEnded) return;
+
         if (Input.GetKey("w") || (Input.mousePosition.y >= Screen.height - panBorderThickeness && mouseToMove))
             transform.Translate(Vector3.forward * panSpeed * Time.deltaTime, Space.World);
 
