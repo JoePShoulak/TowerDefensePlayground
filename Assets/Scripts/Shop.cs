@@ -6,20 +6,29 @@ public class Shop : MonoBehaviour
 {
     BuildManager buildManager;
 
+    public TurretBlueprint standardTurret;
+    public TurretBlueprint missileLauncher;
+
     void Start()
     {
         buildManager = BuildManager.instance;
     }
 
-    public void PurchaseStandardTurret()
+    public void SelectStandardTurret()
     {
         Debug.Log("Standard Turret Selected");
-        buildManager.TurretToBuild = buildManager.standardTurretPrefab;
+        buildManager.TurretToBuild = standardTurret;
     }
 
-    public void PurchaseMissileLauncher()
+    public void SelectMissileLauncher()
     {
         Debug.Log("Missile Launcher Selected");
-        buildManager.TurretToBuild = buildManager.missileTurretPrefab;
+        buildManager.TurretToBuild = missileLauncher;
+    }
+
+    public void OnValidate()
+    {
+        standardTurret.cost = Mathf.RoundToInt(Mathf.Max(0f, (float)standardTurret.cost));
+        missileLauncher.cost = Mathf.RoundToInt(Mathf.Max(0f, (float)missileLauncher.cost));
     }
 }

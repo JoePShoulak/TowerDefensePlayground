@@ -12,7 +12,8 @@ public class Node : MonoBehaviour
 
     private Renderer rend;
     private Color startingColor;
-    private GameObject turret;
+    [Header("Optional")]
+    public GameObject turret;
 
     BuildManager buildManager;
 
@@ -41,19 +42,12 @@ public class Node : MonoBehaviour
     {
         if (turret != null) return;
 
-        GameObject turretToBuild = buildManager.TurretToBuild;
+        GameObject turretToBuild = buildManager.TurretToBuild.prefab;
         if (turretToBuild == null) return;
 
-        BuildTurret(turretToBuild);
+        buildManager.BuildTurretOn(this);
     }
 
-    // Fun Stuff
-    void BuildTurret(GameObject _turret)
-    {
-        Debug.Log("Turret Placed");
-        turret = (GameObject)Instantiate(_turret, transform.position + turretOffset, transform.rotation);
-        buildManager.TurretToBuild = null;
-    }
 
     // Main Stuff
     void Start()
