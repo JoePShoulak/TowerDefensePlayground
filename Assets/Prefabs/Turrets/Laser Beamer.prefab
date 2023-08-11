@@ -50,7 +50,7 @@ MonoBehaviour:
   method: 1
   targetMode: 0
   fireRate: 0.1
-  turnSpeed: 1
+  turnSpeed: 10
   projectilePrefab: {fileID: 0}
   laser: {fileID: 7732857012870845206}
   enemyTag: Enemy
