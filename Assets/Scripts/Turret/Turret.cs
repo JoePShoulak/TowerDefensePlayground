@@ -7,7 +7,7 @@ public enum AttackMethod { Projectile, Laser };
 
 public class Turret : MonoBehaviour
 {
-    [Header("Attributes")]
+    [Header("General")]
     public float range = 15f;
     public AttackMethod method = AttackMethod.Projectile;
     public TargetMode targetMode = TargetMode.ClosestToSelf;
@@ -22,7 +22,6 @@ public class Turret : MonoBehaviour
     public Laser laser;
 
     [Header("Misc")]
-    public string enemyTag = "Enemy";
     [Range(1, 20)]
     public int updatesPerSecond = 1;
     public Transform aimTransform;
@@ -37,7 +36,7 @@ public class Turret : MonoBehaviour
     // Interesting Stuff
     List<GameObject> GetEnemiesInRange()
     {
-        List<GameObject> enemies = new List<GameObject>(GameObject.FindGameObjectsWithTag(enemyTag));
+        List<GameObject> enemies = new List<GameObject>(GameObject.FindGameObjectsWithTag("Enemy"));
         List<GameObject> enemiesInRange = new List<GameObject>();
 
         foreach (GameObject enemy in enemies)

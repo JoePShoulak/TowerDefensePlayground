@@ -10,9 +10,21 @@ public class Shop : MonoBehaviour
     public TurretBlueprint missileLauncher;
     public TurretBlueprint laserBeamer;
 
+    public static TurretBlueprint StandardTurret;
+    public static TurretBlueprint MissileLauncher;
+    public static TurretBlueprint LaserBeamer;
+
     void Start()
     {
         buildManager = BuildManager.instance;
+    }
+
+    void Awake()
+    {
+        // This might be heresy
+        StandardTurret = standardTurret;
+        MissileLauncher = missileLauncher;
+        LaserBeamer = laserBeamer;
     }
 
     public void SelectStandardTurret()

@@ -49,11 +49,11 @@ MonoBehaviour:
   range: 20
   method: 1
   targetMode: 0
+  buildEffect: {fileID: 2618578290718340571, guid: a42260f0b4a39ea439ce678362ae41d9, type: 3}
   fireRate: 0.1
   turnSpeed: 10
   projectilePrefab: {fileID: 0}
   laser: {fileID: 7732857012870845206}
-  enemyTag: Enemy
   updatesPerSecond: 2
   aimTransform: {fileID: 8431091654146585804}
   muzzle: {fileID: 6033283203812711291}

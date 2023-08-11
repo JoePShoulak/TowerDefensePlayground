@@ -194,14 +194,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   range: 30
+  method: 0
+  targetMode: 0
+  buildEffect: {fileID: 2618578290718340571, guid: a42260f0b4a39ea439ce678362ae41d9, type: 3}
   fireRate: 0.25
   turnSpeed: 3
-  targetMode: 0
-  enemyTag: Enemy
+  projectilePrefab: {fileID: 5012624284004928422, guid: 85f534a1358a4d245a9dec35ca75b6ca, type: 3}
+  laser: {fileID: 0}
   updatesPerSecond: 1
   aimTransform: {fileID: 3396729874308055139}
   muzzle: {fileID: 4116959750596531082}
-  projectilePrefab: {fileID: 5012624284004928422, guid: 85f534a1358a4d245a9dec35ca75b6ca, type: 3}
 --- !u!1 &8595028495482608238
 GameObject:
   m_ObjectHideFlags: 0

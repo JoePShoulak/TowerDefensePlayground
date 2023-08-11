@@ -6,9 +6,6 @@ public class BuildManager : MonoBehaviour
 {
     // Singleton pattern
     public static BuildManager instance;
-
-    public GameObject buildEffect;
-    public Vector3 buildEffectOffset;
     void Awake()
     {
         if (instance != null)
@@ -19,30 +16,51 @@ public class BuildManager : MonoBehaviour
         instance = this;
     }
 
+    public GameObject buildEffect;
+    [HideInInspector]
+    public Node lastHoveredNode;
+    public TurretUI turretUI;
+
     private TurretBlueprint turretToBuild;
+    private Node selectedNode;
 
     public TurretBlueprint TurretToBuild
     {
         get { return turretToBuild; }
-        set { turretToBuild = value; }
+        set
+        {
+            turretToBuild = value;
+            DeselectNode();
+        }
+    }
+
+    public Node SelectedNode { get { return selectedNode; } }
+
+    public void SetSelectedNode(Node node)
+    {
+        if (selectedNode == node)
+        {
+            DeselectNode();
+            return;
+        }
+
+        selectedNode = node;
+        turretUI.Show(node);
+        turretToBuild = null;
+    }
+
+    public void DeselectNode()
+    {
+        selectedNode = null;
+        turretUI.Hide();
+        ResetLastHoveredNode();
+
     }
 
     public bool CanAffordTurret { get { return Player.Money >= turretToBuild.cost; } }
 
-    public void BuildTurretOn(Node node)
-    {
-        if (!CanAffordTurret) return;
 
-        Player.Money -= turretToBuild.cost;
-        EffectManager.Spawn(2f, buildEffect, node.BuildPosition + buildEffectOffset);
-        node.turret = (GameObject)Instantiate(turretToBuild.prefab, node.BuildPosition, Quaternion.identity);
-        turretToBuild = null;
-        Debug.Log("Turret Placed");
-    }
 
-    // FIXME: Probably shouldn't be in this class
-    [HideInInspector]
-    public Node lastHoveredNode;
     public void ResetLastHoveredNode()
     {
         if (lastHoveredNode != null) lastHoveredNode.ResetRenderer();
@@ -53,7 +71,9 @@ public class BuildManager : MonoBehaviour
         if (Input.GetMouseButtonDown(1))
         {
             turretToBuild = null;
-            ResetLastHoveredNode();
+            selectedNode = null;
+            turretUI.Hide();
+            DeselectNode();
         }
     }
 }
