@@ -3235,7 +3235,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 318642631}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1040062713}
+        m_TargetAssemblyTypeName: TurretUI, Assembly-CSharp
+        m_MethodName: Sell
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &318642631
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10554,6 +10566,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   upgradeText: {fileID: 747480240}
   sellText: {fileID: 1955978755}
+  upgradeButton: {fileID: 1635334248}
 --- !u!95 &1040062714
 Animator:
   serializedVersion: 5
@@ -14377,22 +14390,31 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   standardTurret:
     prefab: {fileID: 6671399270723911075, guid: e10e15583dcbd7043aa9ca95ca43a294, type: 3}
+    upgradedPrefab: {fileID: 6671399270723911075, guid: 2101f43bc79cb48448d38b38546e01c2, type: 3}
     cost: 100
     buildEffect: {fileID: 2618578290718340571, guid: a42260f0b4a39ea439ce678362ae41d9, type: 3}
     upgradeCost: 80
     sellPrice: 50
+    upgradedSellPrice: 100
+    currentSellPrice: 0
   missileLauncher:
     prefab: {fileID: 7795347985990569007, guid: 5b16b3d0dc976a244bbbe65d43656589, type: 3}
-    cost: 200
+    upgradedPrefab: {fileID: 7795347985990569007, guid: 2003e58ab10c5e649951ed25d806f58c, type: 3}
+    cost: 250
     buildEffect: {fileID: 2618578290718340571, guid: a42260f0b4a39ea439ce678362ae41d9, type: 3}
-    upgradeCost: 150
-    sellPrice: 100
+    upgradeCost: 180
+    sellPrice: 125
+    upgradedSellPrice: 250
+    currentSellPrice: 0
   laserBeamer:
     prefab: {fileID: 1424230934193354144, guid: ad089e1e135c81c47ba41a0d06947d7f, type: 3}
+    upgradedPrefab: {fileID: 1424230934193354144, guid: 527c459c267a35b4b9185f4305656b7b, type: 3}
     cost: 350
     buildEffect: {fileID: 2618578290718340571, guid: a42260f0b4a39ea439ce678362ae41d9, type: 3}
     upgradeCost: 270
     sellPrice: 175
+    upgradedSellPrice: 350
+    currentSellPrice: 0
 --- !u!1001 &1468767548
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -15888,7 +15910,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1635334251}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1040062713}
+        m_TargetAssemblyTypeName: TurretUI, Assembly-CSharp
+        m_MethodName: Upgrade
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1635334251
 MonoBehaviour:
   m_ObjectHideFlags: 0

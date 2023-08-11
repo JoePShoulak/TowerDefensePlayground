@@ -14,6 +14,8 @@ public class Node : MonoBehaviour
     public GameObject turret;
     [HideInInspector]
     public TurretBlueprint blueprint;
+    [HideInInspector]
+    public bool isUpgraded = false;
 
     private Renderer rend;
     private Color startingColor;
@@ -59,13 +61,15 @@ public class Node : MonoBehaviour
         ResetRenderer();
     }
 
+    // FIXME Not dry enough
     void BuildTurret()
     {
         blueprint = buildManager.TurretToBuild;
 
-        if (!(Player.Money >= blueprint.cost)) return;
+        if (!buildManager.CanAffordTurret) return;
 
         Player.Money -= blueprint.cost;
+        blueprint.currentSellPrice = blueprint.sellPrice;
         EffectManager.Spawn(2f, blueprint.buildEffect, BuildPosition);
         turret = (GameObject)Instantiate(blueprint.prefab, BuildPosition, Quaternion.identity);
         buildManager.TurretToBuild = null;
@@ -75,14 +79,33 @@ public class Node : MonoBehaviour
 
     public void UpgradeTurret()
     {
-        if (!(Player.Money >= blueprint.upgradeCost)) return;
+        if (!(Player.Money >= blueprint.upgradeCost) || isUpgraded) return;
 
         Player.Money -= blueprint.cost;
+        isUpgraded = true;
+        blueprint.currentSellPrice = blueprint.upgradedSellPrice;
+        Destroy(turret);
         EffectManager.Spawn(2f, blueprint.buildEffect, BuildPosition);
-        turret = (GameObject)Instantiate(blueprint.prefab, BuildPosition, Quaternion.identity);
+        turret = (GameObject)Instantiate(blueprint.upgradedPrefab, BuildPosition, Quaternion.identity);
         buildManager.TurretToBuild = null;
 
-        Debug.Log("Turret Placed");
+        Debug.Log("Turret Upgraded");
+    }
+
+    public void Clear()
+    {
+        Destroy(turret);
+        turret = null;
+        blueprint = null;
+        isUpgraded = false;
+    }
+
+    public void SellTurret()
+    {
+        if (isUpgraded) Player.Money += blueprint.upgradedSellPrice;
+        else Player.Money += blueprint.sellPrice;
+
+        Clear();
     }
 
     // Main Stuff

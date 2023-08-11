@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class BuildManager : MonoBehaviour
 {
     // Singleton pattern
@@ -58,6 +59,7 @@ public class BuildManager : MonoBehaviour
     }
 
     public bool CanAffordTurret { get { return Player.Money >= turretToBuild.cost; } }
+    public bool CanAffordUpgrade { get { return Player.Money >= turretToBuild.upgradeCost; } }
 
 
 

@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 4553077215780973325}
   - component: {fileID: 4322997796097947562}
   m_Layer: 0
-  m_Name: Standard Laser
+  m_Name: Laser Upgraded
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -32,7 +32,7 @@ Transform:
   m_Children:
   - {fileID: 5310437348943294892}
   m_Father: {fileID: 0}
-  m_RootOrder: -1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!120 &4553077215780973325
 LineRenderer:
@@ -108,8 +108,8 @@ LineRenderer:
       m_RotationOrder: 4
     colorGradient:
       serializedVersion: 2
-      key0: {r: 0, g: 0.31132078, b: 0.031156246, a: 1}
-      key1: {r: 0, g: 1, b: 0.23238349, a: 1}
+      key0: {r: 0.30980393, g: 0.023499785, b: 0, a: 1}
+      key1: {r: 1, g: 0.04995041, b: 0, a: 1}
       key2: {r: 0, g: 1, b: 0.07450981, a: 0}
       key3: {r: 0, g: 0, b: 0, a: 0}
       key4: {r: 0, g: 0, b: 0, a: 0}
@@ -219,6 +219,34 @@ PrefabInstance:
     - target: {fileID: 3814605578846238933, guid: a41ec489f3360e449a792a8f192e1b2d, type: 3}
       propertyPath: m_Name
       value: LaserImpactEffect
+      objectReference: {fileID: 0}
+    - target: {fileID: 7059744105637686014, guid: a41ec489f3360e449a792a8f192e1b2d, type: 3}
+      propertyPath: InitialModule.startColor.maxColor.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7059744105637686014, guid: a41ec489f3360e449a792a8f192e1b2d, type: 3}
+      propertyPath: InitialModule.startColor.maxColor.g
+      value: 0.020420859
+      objectReference: {fileID: 0}
+    - target: {fileID: 7059744105637686014, guid: a41ec489f3360e449a792a8f192e1b2d, type: 3}
+      propertyPath: InitialModule.startColor.maxColor.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9066683742426657591, guid: a41ec489f3360e449a792a8f192e1b2d, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: a413eda6c1c565f4397eb5e5cb64fc49, type: 2}
+    - target: {fileID: 9104135174785035492, guid: a41ec489f3360e449a792a8f192e1b2d, type: 3}
+      propertyPath: m_Color.b
+      value: 0.11183071
+      objectReference: {fileID: 0}
+    - target: {fileID: 9104135174785035492, guid: a41ec489f3360e449a792a8f192e1b2d, type: 3}
+      propertyPath: m_Color.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9104135174785035492, guid: a41ec489f3360e449a792a8f192e1b2d, type: 3}
+      propertyPath: m_Color.r
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
