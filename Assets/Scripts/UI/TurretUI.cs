@@ -7,9 +7,9 @@ using TMPro;
 public class TurretUI : MonoBehaviour
 {
     private Node target;
+    public GameObject upgradeButton;
     public TMP_Text upgradeText;
     public TMP_Text sellText;
-    public GameObject upgradeButton;
 
     public void Show(Node node)
     {

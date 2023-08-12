@@ -7,10 +7,12 @@ public class TurretBlueprint
 {
     public GameObject prefab;
     public GameObject upgradedPrefab;
-    public int cost;
     public GameObject buildEffect;
-    public int upgradeCost;
+    public GameObject upgradeEffect;
+    public GameObject sellEffect;
+    public int cost;
     public int sellPrice;
+    public int upgradeCost;
     public int upgradedSellPrice;
     [HideInInspector]
     public int currentSellPrice;

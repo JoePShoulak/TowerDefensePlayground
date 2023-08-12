@@ -9,19 +9,24 @@ public class TurretButtonUI : MonoBehaviour
 {
     public TurretType turret;
     public TMP_Text costText;
+    TurretManager turretManager;
+
 
     void Start()
     {
+        turretManager = TurretManager.instance;
+
+
         switch (turret)
         {
             case TurretType.StandardTurret:
-                costText.text = "$" + Shop.StandardTurret.cost;
+                costText.text = "$" + turretManager.standardTurret.cost;
                 break;
             case TurretType.MissileLauncher:
-                costText.text = "$" + Shop.MissileLauncher.cost;
+                costText.text = "$" + turretManager.missileLauncher.cost;
                 break;
             case TurretType.LaserBeamer:
-                costText.text = "$" + Shop.LaserBeamer.cost;
+                costText.text = "$" + turretManager.laserBeamer.cost;
                 break;
             default:
                 break;

@@ -5,50 +5,23 @@ using UnityEngine;
 public class Shop : MonoBehaviour
 {
     BuildManager buildManager;
-
-    public TurretBlueprint standardTurret;
-    public TurretBlueprint missileLauncher;
-    public TurretBlueprint laserBeamer;
-
-    public static TurretBlueprint StandardTurret;
-    public static TurretBlueprint MissileLauncher;
-    public static TurretBlueprint LaserBeamer;
+    TurretManager turretManager;
 
     void Start()
     {
         buildManager = BuildManager.instance;
+        turretManager = TurretManager.instance;
     }
 
-    void Awake()
+    public void Select(TurretBlueprint turret)
     {
-        // This might be heresy
-        StandardTurret = standardTurret;
-        MissileLauncher = missileLauncher;
-        LaserBeamer = laserBeamer;
+        buildManager.TurretToBuild = turret;
+        Debug.Log(turret.prefab.name + " Selected");
     }
 
-    public void SelectStandardTurret()
-    {
-        Debug.Log("Standard Turret Selected");
-        buildManager.TurretToBuild = standardTurret;
-    }
+    public void SelectStandardTurret() { Select(turretManager.standardTurret); }
 
-    public void SelectMissileLauncher()
-    {
-        Debug.Log("Missile Launcher Selected");
-        buildManager.TurretToBuild = missileLauncher;
-    }
+    public void SelectMissileLauncher() { Select(turretManager.missileLauncher); }
 
-    public void SelectLaserBeamer()
-    {
-        Debug.Log("Laser Beamer Selected");
-        buildManager.TurretToBuild = laserBeamer;
-    }
-
-    public void OnValidate()
-    {
-        standardTurret.cost = Mathf.RoundToInt(Mathf.Max(0f, (float)standardTurret.cost));
-        missileLauncher.cost = Mathf.RoundToInt(Mathf.Max(0f, (float)missileLauncher.cost));
-        laserBeamer.cost = Mathf.RoundToInt(Mathf.Max(0f, (float)laserBeamer.cost));
-    }
+    public void SelectLaserBeamer() { Select(turretManager.laserBeamer); }
 }
