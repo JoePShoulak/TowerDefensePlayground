@@ -6,14 +6,17 @@ public class Enemy : MonoBehaviour
     public float defaultSpeed = 10f;
     public float waypointDetectionRadius = 1f;
     [Header("Combat")]
-    public float health = 1f;
+    public float startingHealth = 1f;
     public int value = 1;
     public GameObject deathEffect;
     public int damage = 1;
+    [Header("HealthBar")]
+    public HealthBarUI healthBar;
 
     private float distanceToTarget;
     private int waypoint;
     private float speed;
+    private float health;
 
     public float Speed
     {
@@ -32,9 +35,12 @@ public class Enemy : MonoBehaviour
         set { waypoint = value; }
     }
 
+    public float HealthPercent { get { return health / startingHealth; } }
+
     void Start()
     {
         speed = defaultSpeed;
+        health = startingHealth;
     }
 
     void Die()
@@ -49,6 +55,7 @@ public class Enemy : MonoBehaviour
     {
         health -= damage;
         if (health <= 0f) Die();
+        healthBar.Display(HealthPercent);
     }
 
     public void Slow(float slowAmount)

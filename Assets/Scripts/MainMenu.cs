@@ -6,7 +6,7 @@ public class MainMenu : MonoBehaviour
 {
     public Transform menu;
     public Transform credits;
-    public Camera camera;
+    public Camera cam;
     public float camSpeed = 2f;
 
     private Transform target;
@@ -14,15 +14,15 @@ public class MainMenu : MonoBehaviour
     private void Start()
     {
         target = menu;
-        camera.transform.LookAt(target);
+        cam.transform.LookAt(target);
     }
 
     private void Update()
     {
-        Vector3 dir = target.transform.position - camera.transform.position;
+        Vector3 dir = target.transform.position - cam.transform.position;
         Quaternion rotationQ = Quaternion.LookRotation(dir);
-        Vector3 rotationE = Quaternion.Lerp(camera.transform.rotation, rotationQ, Time.deltaTime * camSpeed).eulerAngles;
-        camera.transform.rotation = Quaternion.Euler(rotationE);
+        Vector3 rotationE = Quaternion.Lerp(cam.transform.rotation, rotationQ, Time.deltaTime * camSpeed).eulerAngles;
+        cam.transform.rotation = Quaternion.Euler(rotationE);
     }
 
     public void Play()
