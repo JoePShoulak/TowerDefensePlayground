@@ -198,7 +198,7 @@ MonoBehaviour:
   range: 25
   method: 0
   targetMode: 0
-  fireRate: 3
+  fireRate: 2
   turnSpeed: 20
   projectilePrefab: {fileID: 8800832178109680821, guid: 0e2687b7082000d4788d959d7594126e, type: 3}
   laser: {fileID: 0}

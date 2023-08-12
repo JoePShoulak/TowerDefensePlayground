@@ -120,9 +120,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d2160a554086f0d45b18b4a10cd041d0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  defaultSpeed: 10
+  defaultSpeed: 5
   waypointDetectionRadius: 1
-  startingHealth: 1
+  startingHealth: 5
   value: 10
   deathEffect: {fileID: 5802556129155454698, guid: 9f5bbb1c87444ea428d160f24071b576, type: 3}
   damage: 1

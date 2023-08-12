@@ -7,27 +7,13 @@ public class HealthBarUI : MonoBehaviour
 {
     public GameObject gxf;
 
-    private RectTransform rect;
     private Image image;
     private float healthPercent;
 
     void Start()
     {
         Hide();
-        rect = gxf.GetComponent<RectTransform>();
         image = gxf.GetComponent<Image>();
-    }
-
-    void UpdateSize()
-    {
-        Vector3 newScale = rect.localScale;
-        newScale.x = healthPercent;
-        rect.localScale = newScale;
-    }
-
-    void UpdateColor()
-    {
-        image.color = Color.Lerp(Color.red, Color.green, healthPercent);
     }
 
     public void Display(float _healthPercent)
@@ -35,8 +21,8 @@ public class HealthBarUI : MonoBehaviour
         healthPercent = _healthPercent;
 
         if (!gameObject.activeSelf) Show();
-        UpdateSize();
-        UpdateColor();
+        image.fillAmount = healthPercent;
+        image.color = Color.Lerp(Color.red, Color.green, healthPercent);
     }
 
     public void Show()
