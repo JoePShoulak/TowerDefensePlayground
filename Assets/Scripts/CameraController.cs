@@ -2,6 +2,29 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public class GetInput
+{
+    public static bool Up(CameraController cam)
+    {
+        return (Input.GetKey("w") || (Input.mousePosition.y >= Screen.height - cam.panBorderThickeness && cam.mouseToMove));
+    }
+
+    public static bool Down(CameraController cam)
+    {
+        return (Input.GetKey("s") || (Input.mousePosition.y <= cam.panBorderThickeness && cam.mouseToMove));
+    }
+
+    public static bool Left(CameraController cam)
+    {
+        return (Input.GetKey("a") || (Input.mousePosition.x <= cam.panBorderThickeness && cam.mouseToMove));
+    }
+
+    public static bool Right(CameraController cam)
+    {
+        return (Input.GetKey("d") || (Input.mousePosition.x >= Screen.width - cam.panBorderThickeness && cam.mouseToMove));
+    }
+}
+
 public class CameraController : MonoBehaviour
 {
     public float panSpeed = 30f;
@@ -11,21 +34,19 @@ public class CameraController : MonoBehaviour
     public float minY = 10f;
     public float maxY = 80f;
 
+    void Move(Vector3 dir)
+    {
+        transform.Translate(dir * panSpeed * Time.deltaTime, Space.World);
+    }
+
     void Update()
     {
         if (GameManager.GameEnded) return;
 
-        if (Input.GetKey("w") || (Input.mousePosition.y >= Screen.height - panBorderThickeness && mouseToMove))
-            transform.Translate(Vector3.forward * panSpeed * Time.deltaTime, Space.World);
-
-        if (Input.GetKey("s") || (Input.mousePosition.y <= panBorderThickeness && mouseToMove))
-            transform.Translate(Vector3.back * panSpeed * Time.deltaTime, Space.World);
-
-        if (Input.GetKey("a") || (Input.mousePosition.x <= panBorderThickeness && mouseToMove))
-            transform.Translate(Vector3.left * panSpeed * Time.deltaTime, Space.World);
-
-        if (Input.GetKey("d") || (Input.mousePosition.x >= Screen.width - panBorderThickeness && mouseToMove))
-            transform.Translate(Vector3.right * panSpeed * Time.deltaTime, Space.World);
+        if (GetInput.Up(this)) Move(Vector3.forward);
+        if (GetInput.Down(this)) Move(Vector3.back);
+        if (GetInput.Left(this)) Move(Vector3.left);
+        if (GetInput.Right(this)) Move(Vector3.right);
 
         float scroll = Input.GetAxis("Mouse ScrollWheel");
         Vector3 pos = transform.position;
