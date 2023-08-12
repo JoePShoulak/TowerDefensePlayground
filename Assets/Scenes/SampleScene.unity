@@ -15008,7 +15008,7 @@ MonoBehaviour:
     upgradedPrefab: {fileID: 6671399270723911075, guid: 2101f43bc79cb48448d38b38546e01c2, type: 3}
     buildEffect: {fileID: 2618578290718340571, guid: a42260f0b4a39ea439ce678362ae41d9, type: 3}
     upgradeEffect: {fileID: 2618578290718340571, guid: a42260f0b4a39ea439ce678362ae41d9, type: 3}
-    sellEffect: {fileID: 2618578290718340571, guid: a42260f0b4a39ea439ce678362ae41d9, type: 3}
+    sellEffect: {fileID: 3558707088597870870, guid: 59cd43e107e8f334aae1272a28ecc3ef, type: 3}
     cost: 100
     sellPrice: 50
     upgradeCost: 80
@@ -15019,7 +15019,7 @@ MonoBehaviour:
     upgradedPrefab: {fileID: 7795347985990569007, guid: 2003e58ab10c5e649951ed25d806f58c, type: 3}
     buildEffect: {fileID: 2618578290718340571, guid: a42260f0b4a39ea439ce678362ae41d9, type: 3}
     upgradeEffect: {fileID: 2618578290718340571, guid: a42260f0b4a39ea439ce678362ae41d9, type: 3}
-    sellEffect: {fileID: 2618578290718340571, guid: a42260f0b4a39ea439ce678362ae41d9, type: 3}
+    sellEffect: {fileID: 3558707088597870870, guid: 59cd43e107e8f334aae1272a28ecc3ef, type: 3}
     cost: 250
     sellPrice: 125
     upgradeCost: 180
@@ -15030,7 +15030,7 @@ MonoBehaviour:
     upgradedPrefab: {fileID: 1424230934193354144, guid: 527c459c267a35b4b9185f4305656b7b, type: 3}
     buildEffect: {fileID: 2618578290718340571, guid: a42260f0b4a39ea439ce678362ae41d9, type: 3}
     upgradeEffect: {fileID: 2618578290718340571, guid: a42260f0b4a39ea439ce678362ae41d9, type: 3}
-    sellEffect: {fileID: 2618578290718340571, guid: a42260f0b4a39ea439ce678362ae41d9, type: 3}
+    sellEffect: {fileID: 3558707088597870870, guid: 59cd43e107e8f334aae1272a28ecc3ef, type: 3}
     cost: 350
     sellPrice: 175
     upgradeCost: 270
