@@ -15788,9 +15788,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyPrefab: {fileID: 6146365923120742511, guid: 33bec622b17791d45a22b0a2ff7fbe28, type: 3}
-  timeBetweenWaves: 5
-  timeBetweenEnemies: 0.5
-  timeBeforeStart: 3
+  waveList:
+  - waveDelay: 3
+    enemyDelay: 1
+    enemyCount: 2
+    enemyObj: {fileID: 5089112124435979691, guid: 33bec622b17791d45a22b0a2ff7fbe28, type: 3}
+  - waveDelay: 3
+    enemyDelay: 0.5
+    enemyCount: 4
+    enemyObj: {fileID: 5089112124435979691, guid: e498322248ae2854e8b0647ae766c392, type: 3}
+  - waveDelay: 1
+    enemyDelay: 3
+    enemyCount: 2
+    enemyObj: {fileID: 5089112124435979691, guid: c9c3bf1a6d13df641807cd2a187a9648, type: 3}
   waveTimer: {fileID: 483684314}
 --- !u!4 &1524308636
 Transform:

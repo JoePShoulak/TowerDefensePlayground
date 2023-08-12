@@ -1,22 +1,32 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+
+[System.Serializable]
+public class Wave
+{
+    public float waveDelay = 3f;
+    public float enemyDelay = 0.5f;
+    public int enemyCount = 1;
+    public GameObject enemyObj;
+}
 
 public class WaveManager : MonoBehaviour
 {
     public Transform enemyPrefab;
     private Transform spawnLocation;
-    public float timeBetweenWaves = 5f;
-    public float timeBetweenEnemies = 0.5f;
-    public float timeBeforeStart = 15f;
-
+    public List<Wave> waveList;
     public TMP_Text waveTimer;
+
+    public static int EnemiesOnScreen = 0;
 
     private float countdown;
     private bool spawning = false;
+    private int waveIndex;
+    private Wave currentWave;
 
-    private int prevEnemyCount = 0;
-    private int enemyCount = 1;
+    public bool OnFinalWave { get { return waveIndex >= waveList.Count; } }
 
     void Awake()
     {
@@ -25,25 +35,35 @@ public class WaveManager : MonoBehaviour
 
     void Start()
     {
-        countdown = timeBeforeStart;
+        waveIndex = 0;
+        UpdateWave();
     }
 
-    void IncreaseEnemies()
+    void WinGame()
     {
-        int temp = enemyCount;
-        enemyCount += prevEnemyCount;
-        prevEnemyCount = temp;
+        Debug.Log("you won!");
+        GameManager.GameEnded = true;
+    }
 
-        timeBetweenEnemies = 1f - Mathf.Log(Player.RoundsSurvived + 0.01f) / 3;
+    void UpdateWave()
+    {
+        if (OnFinalWave) return;
+
+        currentWave = waveList[waveIndex];
+        countdown = currentWave.waveDelay;
     }
 
     void Update()
     {
-        if (countdown <= 0f)
+        if (EnemiesOnScreen > 0 || GameManager.GameEnded) return;
+
+        if (OnFinalWave && !GameManager.GameEnded)
         {
-            StartCoroutine(SpawnWave());
-            countdown = timeBetweenWaves;
+            WinGame();
+            return;
         }
+
+        if (countdown <= 0f) StartCoroutine(SpawnWave());
 
         if (!spawning)
         {
@@ -52,9 +72,10 @@ public class WaveManager : MonoBehaviour
         }
     }
 
-    void SpawnEnemy()
+    void SpawnEnemy(GameObject enemy)
     {
-        Instantiate(enemyPrefab, spawnLocation.position, spawnLocation.rotation);
+        Instantiate(enemy, spawnLocation.position, spawnLocation.rotation);
+        EnemiesOnScreen++;
     }
 
     IEnumerator SpawnWave()
@@ -63,19 +84,19 @@ public class WaveManager : MonoBehaviour
 
         waveTimer.text = "";
         spawning = true;
-        for (int i = 0; i < enemyCount; i++)
+        for (int i = 0; i < currentWave.enemyCount; i++)
         {
-            SpawnEnemy();
-            yield return new WaitForSeconds(timeBetweenEnemies);
+            SpawnEnemy(currentWave.enemyObj);
+            yield return new WaitForSeconds(currentWave.enemyDelay);
         }
         spawning = false;
 
-        IncreaseEnemies();
+        waveIndex++;
+        UpdateWave();
     }
 
     public void OnValidate()
     {
-        timeBetweenWaves = Mathf.Max(1f, timeBetweenWaves);
-        timeBetweenEnemies = Mathf.Max(0.1f, timeBetweenEnemies);
+        // TODO: Validate 
     }
 }

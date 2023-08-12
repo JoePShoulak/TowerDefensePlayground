@@ -47,7 +47,13 @@ public class Enemy : MonoBehaviour
     {
         Player.Money += value;
         EffectManager.Spawn(2f, deathEffect, transform.position);
+        DestroySelf();
+    }
+
+    public void DestroySelf()
+    {
         Destroy(gameObject);
+        WaveManager.EnemiesOnScreen--;
         return;
     }
 

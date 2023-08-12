@@ -60,8 +60,7 @@ public class EnemyMovement : MonoBehaviour
     void ReachEnd()
     {
         Player.TakeDamage(enemy.damage);
-        Destroy(gameObject);
-        return;
+        enemy.DestroySelf();
     }
 
 }

@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 1075904276369295292}
   - component: {fileID: 46721981036835992}
   m_Layer: 0
-  m_Name: Enemy
+  m_Name: Enemy Small
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -30,8 +30,8 @@ Transform:
   m_GameObject: {fileID: 5089112124435979691}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -8, y: 2, z: 4.25}
-  m_LocalScale: {x: 2, y: 2, z: 2}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 1.25, y: 1.25, z: 1.25}
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 1399985900165844944}
   m_Father: {fileID: 0}
@@ -65,7 +65,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 2c30745c01a0a33469791af77970a094, type: 2}
+  - {fileID: 2100000, guid: c7bc7858f86fabf4690b47c514f7ed64, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -120,11 +120,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d2160a554086f0d45b18b4a10cd041d0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  defaultSpeed: 5
+  defaultSpeed: 7.5
   waypointDetectionRadius: 1
-  startingHealth: 5
-  value: 10
-  deathEffect: {fileID: 5802556129155454698, guid: 9f5bbb1c87444ea428d160f24071b576, type: 3}
+  startingHealth: 2
+  value: 5
+  deathEffect: {fileID: 5802556129155454698, guid: 8ec40e839378f2240bc9c8cb5304da85, type: 3}
   damage: 1
   healthBar: {fileID: 2821059674138651868}
 --- !u!114 &46721981036835992

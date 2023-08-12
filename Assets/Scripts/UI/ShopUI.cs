@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+// TODO: Generate the buttons dynamically
 public class Shop : MonoBehaviour
 {
     BuildManager buildManager;
