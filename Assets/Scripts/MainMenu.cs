@@ -41,7 +41,7 @@ public class MainMenu : MonoBehaviour
     public void Credits()
     {
         target = credits;
-
+        // TODO: Make certain words in the credits be clickable linkts to things
     }
 
     public void BackFromCredits()
