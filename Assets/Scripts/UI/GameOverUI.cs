@@ -7,6 +7,7 @@ using TMPro;
 public class GameOverUI : MonoBehaviour
 {
     public TMP_Text roundsText;
+    public Transition transition;
 
     void OnEnable()
     {
@@ -15,11 +16,11 @@ public class GameOverUI : MonoBehaviour
 
     public void Retry()
     {
-        SceneController.Restart();
+        transition.FadeTo(SceneManager.GetActiveScene().name);
     }
 
     public void Menu()
     {
-        SceneController.LoadMainMenu();
+        transition.FadeTo("MainMenu");
     }
 }

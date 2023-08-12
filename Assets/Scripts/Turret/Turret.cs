@@ -5,6 +5,7 @@ using UnityEngine;
 public enum TargetMode { ClosestToSelf, ClosestToEnd, ClosestToStart };
 public enum AttackMethod { Projectile, Laser };
 
+// Add muzzle flashes on projectiles, and also a missle effect coming out the back of the missle prefab
 public class Turret : MonoBehaviour
 {
     [Header("General")]

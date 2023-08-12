@@ -8,10 +8,11 @@ public class WaveManager : MonoBehaviour
     private Transform spawnLocation;
     public float timeBetweenWaves = 5f;
     public float timeBetweenEnemies = 0.5f;
+    public float timeBeforeStart = 15f;
 
     public TMP_Text waveTimer;
 
-    private float countdown = 2f;
+    private float countdown;
     private bool spawning = false;
 
     private int prevEnemyCount = 0;
@@ -20,6 +21,11 @@ public class WaveManager : MonoBehaviour
     void Awake()
     {
         spawnLocation = GameObject.FindGameObjectWithTag("Spawn").transform;
+    }
+
+    void Start()
+    {
+        countdown = timeBeforeStart;
     }
 
     void IncreaseEnemies()

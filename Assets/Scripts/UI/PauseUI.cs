@@ -5,6 +5,8 @@ using UnityEngine.SceneManagement;
 
 public class PauseUI : MonoBehaviour
 {
+    public Transition transition;
+
     public void Show()
     {
         gameObject.SetActive(true);
@@ -29,12 +31,12 @@ public class PauseUI : MonoBehaviour
     public void Retry()
     {
         TimeManager.Resume();
-        SceneController.Restart();
+        transition.FadeTo(SceneManager.GetActiveScene().name);
     }
 
     public void Menu()
     {
         TimeManager.Resume();
-        SceneController.LoadMainMenu();
+        transition.FadeTo("MainMenu");
     }
 }

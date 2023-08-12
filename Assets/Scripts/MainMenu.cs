@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class MainMenu : MonoBehaviour
 {
@@ -8,6 +9,7 @@ public class MainMenu : MonoBehaviour
     public Transform credits;
     public Camera cam;
     public float camSpeed = 2f;
+    public Transition transition;
 
     private Transform target;
 
@@ -27,7 +29,7 @@ public class MainMenu : MonoBehaviour
 
     public void Play()
     {
-        SceneController.LoadSample();
+        transition.FadeTo("SampleLevel");
     }
 
     public void Quit()
