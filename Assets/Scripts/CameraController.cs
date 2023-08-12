@@ -2,29 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GetInput
-{
-    public static bool Up(CameraController cam)
-    {
-        return (Input.GetKey("w") || (Input.mousePosition.y >= Screen.height - cam.panBorderThickeness && cam.mouseToMove));
-    }
-
-    public static bool Down(CameraController cam)
-    {
-        return (Input.GetKey("s") || (Input.mousePosition.y <= cam.panBorderThickeness && cam.mouseToMove));
-    }
-
-    public static bool Left(CameraController cam)
-    {
-        return (Input.GetKey("a") || (Input.mousePosition.x <= cam.panBorderThickeness && cam.mouseToMove));
-    }
-
-    public static bool Right(CameraController cam)
-    {
-        return (Input.GetKey("d") || (Input.mousePosition.x >= Screen.width - cam.panBorderThickeness && cam.mouseToMove));
-    }
-}
-
 public class CameraController : MonoBehaviour
 {
     public float panSpeed = 30f;

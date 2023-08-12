@@ -4,26 +4,26 @@ using UnityEngine;
 
 public class TimeManager : MonoBehaviour
 {
-    public static void Pause()
-    {
+    public PauseUI pauseUI;
 
+    public static void Toggle()
+    {
+        Time.timeScale = 1f - Time.timeScale;
     }
 
     public static void Resume()
     {
-
+        Time.timeScale = 1f;
     }
 
     public void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.P))
+        if (GetInput.Pause())
         {
             Toggle();
+            pauseUI.Toggle();
         }
     }
 
-    public void Toggle()
-    {
 
-    }
 }

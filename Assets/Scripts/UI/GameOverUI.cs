@@ -15,11 +15,11 @@ public class GameOverUI : MonoBehaviour
 
     public void Retry()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        SceneController.Restart();
     }
 
     public void Menu()
     {
-
+        SceneController.LoadMainMenu();
     }
 }
