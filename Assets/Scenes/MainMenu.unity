@@ -1213,7 +1213,7 @@ GameObject:
   - component: {fileID: 984426722}
   - component: {fileID: 984426723}
   m_Layer: 0
-  m_Name: GameMaster
+  m_Name: MainMenuMaster
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1518,6 +1518,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1489221287358362016, guid: 7fef536827dc54d46b61fe2e4264caa3, type: 3}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4555941745108188333, guid: 7fef536827dc54d46b61fe2e4264caa3, type: 3}
       propertyPath: m_Name
       value: Transition
@@ -1573,7 +1577,7 @@ PrefabInstance:
   m_SourcePrefab: {fileID: 100100000, guid: 7fef536827dc54d46b61fe2e4264caa3, type: 3}
 --- !u!114 &1413526917 stripped
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 8478791853053137653, guid: 7fef536827dc54d46b61fe2e4264caa3, type: 3}
+  m_CorrespondingSourceObject: {fileID: 9005575657960758261, guid: 7fef536827dc54d46b61fe2e4264caa3, type: 3}
   m_PrefabInstance: {fileID: 1413526916}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}

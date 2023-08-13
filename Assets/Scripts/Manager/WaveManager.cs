@@ -18,8 +18,9 @@ public class WaveManager : MonoBehaviour
     private Transform spawnLocation;
     public List<Wave> waveList;
     public TMP_Text waveTimer;
+    public GameManager game;
 
-    public static int EnemiesOnScreen = 0;
+    public static int EnemiesToKill = 0;
 
     private float countdown;
     private bool spawning = false;
@@ -39,11 +40,6 @@ public class WaveManager : MonoBehaviour
         UpdateWave();
     }
 
-    void WinGame()
-    {
-        Debug.Log("you won!");
-        GameManager.GameEnded = true;
-    }
 
     void UpdateWave()
     {
@@ -55,11 +51,12 @@ public class WaveManager : MonoBehaviour
 
     void Update()
     {
-        if (EnemiesOnScreen > 0 || GameManager.GameEnded) return;
+        if (EnemiesToKill > 0) return;
 
-        if (OnFinalWave && !GameManager.GameEnded)
+        if (OnFinalWave)
         {
-            WinGame();
+            game.Win();
+            this.enabled = false;
             return;
         }
 
@@ -75,12 +72,12 @@ public class WaveManager : MonoBehaviour
     void SpawnEnemy(GameObject enemy)
     {
         Instantiate(enemy, spawnLocation.position, spawnLocation.rotation);
-        EnemiesOnScreen++;
     }
 
     IEnumerator SpawnWave()
     {
         Player.RoundsSurvived++;
+        EnemiesToKill = currentWave.enemyCount;
 
         waveTimer.text = "";
         spawning = true;

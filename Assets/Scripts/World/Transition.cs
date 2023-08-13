@@ -51,6 +51,16 @@ public class Transition : MonoBehaviour
         StartCoroutine(PerformFade(true, scene));
     }
 
+    public void FadeToSelf()
+    {
+        FadeTo(SceneManager.GetActiveScene().name);
+    }
+
+    public void FadeToMenu()
+    {
+        FadeTo("MainMenu");
+    }
+
     // IEnumerator FadeIn()
     // {
     //     float t = 1f;

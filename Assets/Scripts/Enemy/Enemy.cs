@@ -17,6 +17,7 @@ public class Enemy : MonoBehaviour
     private int waypoint;
     private float speed;
     private float health;
+    private bool isDead = false;
 
     public float Speed
     {
@@ -45,6 +46,9 @@ public class Enemy : MonoBehaviour
 
     void Die()
     {
+        if (isDead) return;
+
+        isDead = true;
         Player.Money += value;
         EffectManager.Spawn(2f, deathEffect, transform.position);
         DestroySelf();
@@ -52,8 +56,8 @@ public class Enemy : MonoBehaviour
 
     public void DestroySelf()
     {
+        WaveManager.EnemiesToKill--;
         Destroy(gameObject);
-        WaveManager.EnemiesOnScreen--;
         return;
     }
 
