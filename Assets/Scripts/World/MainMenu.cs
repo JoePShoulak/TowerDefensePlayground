@@ -29,7 +29,7 @@ public class MainMenu : MonoBehaviour
 
     public void Play()
     {
-        transition.FadeTo("SampleLevel");
+        transition.FadeTo("LevelSelect");
     }
 
     public void Quit()
