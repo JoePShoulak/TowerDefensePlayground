@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 2868117081419938938}
   - component: {fileID: 5824604305603124232}
   m_Layer: 2
-  m_Name: Sphere
+  m_Name: ForceField
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
