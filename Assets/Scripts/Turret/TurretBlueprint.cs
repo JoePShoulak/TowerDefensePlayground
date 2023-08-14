@@ -10,6 +10,7 @@ public class TurretBlueprint
     public GameObject buildEffect;
     public GameObject upgradeEffect;
     public GameObject sellEffect;
+    public GameObject rangeGfx;
     public int cost;
     public int sellPrice;
     public int upgradeCost;

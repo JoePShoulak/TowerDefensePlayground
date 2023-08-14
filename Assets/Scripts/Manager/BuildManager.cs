@@ -47,6 +47,7 @@ public class BuildManager : MonoBehaviour
 
         selectedNode = node;
         turretUI.Show(node);
+        node.ShowRangePreview();
         turretToBuild = null;
     }
 
@@ -65,7 +66,7 @@ public class BuildManager : MonoBehaviour
 
     public void ResetLastHoveredNode()
     {
-        if (lastHoveredNode != null) lastHoveredNode.ResetRenderer();
+        if (lastHoveredNode != null) lastHoveredNode.ResetNode();
     }
 
     void Update()
