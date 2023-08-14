@@ -17181,6 +17181,22 @@ PrefabInstance:
       propertyPath: waveTimer
       value: 
       objectReference: {fileID: 1222980122317579208}
+    - target: {fileID: 94391819623100067, guid: 96531a1d8c9716a4ab948b02e60f5648, type: 3}
+      propertyPath: waveList.Array.data[0].waveDelay
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 94391819623100067, guid: 96531a1d8c9716a4ab948b02e60f5648, type: 3}
+      propertyPath: waveList.Array.data[0].enemyCount
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 94391819623100067, guid: 96531a1d8c9716a4ab948b02e60f5648, type: 3}
+      propertyPath: waveList.Array.data[1].enemyCount
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 94391819623100067, guid: 96531a1d8c9716a4ab948b02e60f5648, type: 3}
+      propertyPath: waveList.Array.data[2].enemyCount
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 2703177180081965730, guid: 96531a1d8c9716a4ab948b02e60f5648, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -17224,6 +17240,14 @@ PrefabInstance:
     - target: {fileID: 2703177180081965730, guid: 96531a1d8c9716a4ab948b02e60f5648, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2794729503049548974, guid: 96531a1d8c9716a4ab948b02e60f5648, type: 3}
+      propertyPath: startLives
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 2794729503049548974, guid: 96531a1d8c9716a4ab948b02e60f5648, type: 3}
+      propertyPath: startMoney
+      value: 200
       objectReference: {fileID: 0}
     - target: {fileID: 4447559720480328048, guid: 96531a1d8c9716a4ab948b02e60f5648, type: 3}
       propertyPath: m_AnchorMax.y

@@ -44,6 +44,7 @@ Material:
     m_Floats:
     - _BUILTIN_QueueControl: 0
     - _BUILTIN_QueueOffset: 0
+    - _Fill: 0.01
     - _FresnelPower: 5
     - _Offset: -0.68
     - _ScrollSpeed: 0.05
