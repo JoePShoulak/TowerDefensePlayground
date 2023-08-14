@@ -129,6 +129,7 @@ MonoBehaviour:
     buildEffect: {fileID: 0}
     upgradeEffect: {fileID: 0}
     sellEffect: {fileID: 0}
+    rangeGfx: {fileID: 0}
     cost: 0
     sellPrice: 0
     upgradeCost: 0
