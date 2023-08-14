@@ -20,31 +20,74 @@ public class Node : MonoBehaviour
 
     private Renderer rend;
     private Color startingColor;
+    private GameObject rangePreview;
 
     BuildManager buildManager;
 
     public Vector3 BuildPosition { get { return transform.position + turretOffset; } }
     public Vector3 EffectPosition { get { return transform.position + effectOffset; } }
 
-    // Mouse Stuff
-    void OnMouseOver()
+    public void SetNodeToBuildabilityColor()
     {
-        buildManager.lastHoveredNode = this;
-
-        if (EventSystem.current.IsPointerOverGameObject() || buildManager.TurretToBuild == null) return;
 
         if (turret == null && buildManager.CanAffordTurret) rend.material.color = canBuildColor;
         else rend.material.color = cannotBuildColor;
     }
 
-    public void ResetRenderer()
+    public void ShowRangePreview()
+    {
+        if (rangePreview != null) return;
+
+        GameObject gfx = null;
+        float range = 1f;
+
+        if (buildManager.TurretToBuild != null)
+        {
+            gfx = buildManager.TurretToBuild.rangeGfx;
+            range = buildManager.TurretToBuild.prefab.GetComponent<Turret>().range;
+        }
+        else
+        {
+            gfx = blueprint.rangeGfx;
+            range = blueprint.prefab.GetComponent<Turret>().range;
+        }
+
+        rangePreview = (GameObject)Instantiate(gfx, BuildPosition, Quaternion.identity);
+        rangePreview.transform.localScale = Vector3.one * range;
+        Debug.Log(rangePreview);
+    }
+
+    public void PreviewTurret()
+    {
+        SetNodeToBuildabilityColor();
+
+        ShowRangePreview();
+    }
+
+
+
+    void OnMouseOver()
+    {
+        if (EventSystem.current.IsPointerOverGameObject() || buildManager.TurretToBuild == null) return;
+
+
+        buildManager.lastHoveredNode = this;
+
+        if (buildManager.TurretToBuild != null) PreviewTurret();
+
+    }
+
+    public void ResetNode()
     {
         rend.material.color = startingColor;
+        if (rangePreview != null) Destroy(rangePreview);
     }
 
     void OnMouseExit()
     {
-        ResetRenderer();
+        if (buildManager.SelectedNode == this) return;
+
+        ResetNode();
     }
 
     void OnMouseDown()
@@ -52,9 +95,12 @@ public class Node : MonoBehaviour
         if (EventSystem.current.IsPointerOverGameObject()) return;
 
         if (turret != null) buildManager.SetSelectedNode(this);
-        else if (buildManager.TurretToBuild != null) BuildTurret();
+        else if (buildManager.TurretToBuild != null)
+        {
+            BuildTurret();
+            ResetNode();
+        }
 
-        ResetRenderer();
     }
 
     void PlaceTurret(bool upgrading = false)
