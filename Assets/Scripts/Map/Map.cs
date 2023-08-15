@@ -133,15 +133,18 @@ public class Map : MonoBehaviour
             SpawnSinglePathFromSection(section, waypoints);
             if (i == 0) continue;
 
-            if (section.type == PathType.Normal)
-                DestroyImmediate(section.node);
-            else
+            if (section.type != PathType.Normal)
             {
                 CreateBoundingBox(roadStart, section.node, road);
-                DestroyImmediate(roadStart);
                 roadStart = section.node;
                 if (section.type == PathType.End) DestroyImmediate(section.node);
             }
+
+        }
+
+        foreach (PathSection section in sections)
+        {
+            DestroyImmediate(section.node);
         }
     }
 

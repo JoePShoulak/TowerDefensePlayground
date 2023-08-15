@@ -44,8 +44,6 @@ public class PathMaker
             if (i == 0) pathSections.Add(new PathSection(currentNode, PathType.Start));
             else
             {
-                if (i == nodes.Count - 1) pathSections.Add(new PathSection(currentNode, PathType.End));
-
                 dir = GetDirection(currentNode.transform.position, currPos);
 
                 if (dir == Direction.Null) return new List<PathSection>();
@@ -54,9 +52,17 @@ public class PathMaker
                 {
                     pathSections.RemoveAt(pathSections.Count - 1);
                     pathSections.Add(new PathSection(oldNode, PathType.Waypoint));
+                }
+
+                if (i == nodes.Count - 1)
+                {
+                    pathSections.Add(new PathSection(currentNode, PathType.End));
+                    pathSections.Add(new PathSection(currentNode, PathType.Waypoint));
+                }
+                else
+                {
                     pathSections.Add(new PathSection(currentNode, PathType.Normal));
                 }
-                else pathSections.Add(new PathSection(currentNode, PathType.Normal));
 
                 currPos = nodes[i].transform.position;
                 oldDir = dir;
