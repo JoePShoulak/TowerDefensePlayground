@@ -19,16 +19,6 @@ public class PathSection
 
 public class PathMaker
 {
-    public static void ColorNode(GameObject node, Color color)
-    {
-        Renderer renderer = node.GetComponent<Renderer>();
-
-        Material tempMaterial = new Material(renderer.sharedMaterial);
-        tempMaterial.color = color;
-
-        renderer.sharedMaterial = tempMaterial;
-    }
-
     static Direction GetDirection(Vector3 posA, Vector3 posB)
     {
         if (posA.x == posB.x) return Direction.Vertical;

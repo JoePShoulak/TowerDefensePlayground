@@ -33,7 +33,11 @@ public class Transition : MonoBehaviour
             yield return 0;
         }
 
-        if (scene != null) SceneManager.LoadScene(scene);
+        if (scene != null)
+        {
+            Debug.Log("Loading Scene: " + scene);
+            SceneManager.LoadScene(scene);
+        }
     }
 
     public void FadeIn()

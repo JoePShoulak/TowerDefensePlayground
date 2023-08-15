@@ -2,13 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-
 public class Map : MonoBehaviour
 {
     public GameObject nodeObj;
     public GameObject startObj;
     public GameObject endObj;
     public GameObject waypointObj;
+
+    public Material roadMaterial;
 
     public float width = 70f;
     public int nodesPerRow = 16;
@@ -17,9 +18,41 @@ public class Map : MonoBehaviour
     private GameObject nodes;
     private GameObject path;
     private GameObject waypoints;
+    private GameObject road;
 
-    public bool NodesExist { get { return nodes != null; } }
-    public bool PathExists { get { return path != null; } }
+    public bool NodesExist
+    {
+        get
+        {
+            Transform _nodes = transform.Find("Nodes");
+            if (_nodes == null)
+            {
+                nodes = null;
+                return false;
+            }
+
+            nodes = _nodes.gameObject;
+            return true;
+
+        }
+    }
+
+    public bool PathExists
+    {
+        get
+        {
+            Transform _path = transform.Find("Path");
+            if (_path == null)
+            {
+                path = null;
+                return false;
+            }
+
+            path = _path.gameObject;
+            return true;
+        }
+    }
+
 
     /* == HELPERS == */
     GameObject MakeEmptyChild(GameObject parent, string name = "New Child")
@@ -32,7 +65,8 @@ public class Map : MonoBehaviour
     /* == NODES == */
     public void MakeNodes()
     {
-        if (NodesExist) ClearNodes();
+        if (NodesExist) ClearAll();
+
         nodes = MakeEmptyChild(gameObject, "Nodes");
         GameObject resizedNode = NodeMaker.ResizeNode(nodeObj, width, nodesPerRow, spacing);
 
@@ -40,19 +74,17 @@ public class Map : MonoBehaviour
         Vector3 spawnCorner = NodeMaker.GetSpawnStartLocation(transform, nodesPerRow, nodeWidth, spacing);
 
         List<Vector3> spawnLocations = NodeMaker.CreateGrid(nodesPerRow, nodeWidth, spacing, spawnCorner);
+
         foreach (Vector3 spawnLocation in spawnLocations)
         {
             GameObject newNode = (GameObject)Instantiate(nodeObj, spawnLocation, Quaternion.identity, nodes.transform);
         }
     }
 
-    public void ClearNodes()
+    public void ClearAll()
     {
-        for (int i = transform.childCount - 1; i >= 0; i--)
-        {
-            Transform child = transform.GetChild(i);
-            DestroyImmediate(child.gameObject);
-        }
+        if (nodes != null) DestroyImmediate(nodes);
+        if (path != null) DestroyImmediate(path);
     }
 
     /* == PATHS == */
@@ -76,7 +108,7 @@ public class Map : MonoBehaviour
         SpawnPathFromSections(pathSections);
     }
 
-    public void ResetPath()
+    public void ClearPath()
     {
         DestroyPath();
         MakeNodes();
@@ -90,38 +122,69 @@ public class Map : MonoBehaviour
     void SpawnPathFromSections(List<PathSection> sections)
     {
         waypoints = MakeEmptyChild(path, "Waypoints");
+        road = MakeEmptyChild(path, "Road");
         waypoints.AddComponent<Waypoints>();
-        foreach (PathSection section in sections)
-        {
-            Vector3 offset = Vector3.up * (nodeObj.transform.localScale.y + startObj.transform.localScale.y) / 2;
-            section.node.transform.SetParent(path.transform);
 
-            switch (section.type)
+        GameObject roadStart = sections[0].node;
+
+        for (int i = 0; i < sections.Count - 1; i++)
+        {
+            PathSection section = sections[i];
+            SpawnSinglePathFromSection(section, waypoints);
+            if (i == 0) continue;
+
+            if (section.type == PathType.Normal)
+                DestroyImmediate(section.node);
+            else
             {
-                case PathType.Waypoint:
-                    Instantiate(waypointObj, section.node.transform.position + offset, Quaternion.identity, waypoints.transform);
-                    PathMaker.ColorNode(section.node, Color.gray);
-                    break;
-                case PathType.Normal:
-                    PathMaker.ColorNode(section.node, Color.gray);
-                    break;
-                case PathType.Start:
-                    Instantiate(startObj, section.node.transform.position + offset, Quaternion.identity, path.transform);
-                    break;
-                case PathType.End:
-                    Instantiate(waypointObj, section.node.transform.position + offset, Quaternion.identity, waypoints.transform);
-                    Instantiate(endObj, section.node.transform.position + offset, Quaternion.identity, path.transform);
-                    break;
-                default:
-                    break;
+                CreateBoundingBox(roadStart, section.node, road);
+                DestroyImmediate(roadStart);
+                roadStart = section.node;
+                if (section.type == PathType.End) DestroyImmediate(section.node);
             }
         }
     }
 
-    void OnValidate()
+    void SpawnSinglePathFromSection(PathSection section, GameObject parent)
     {
-        Debug.Log(PathExists);
+        section.node.transform.SetParent(path.transform);
+        Vector3 offset = Vector3.up * (section.node.transform.localScale.y + startObj.transform.localScale.y) / 2;
+        Vector3 pos = section.node.transform.position + offset;
+
+        switch (section.type)
+        {
+            case PathType.Waypoint:
+                Instantiate(waypointObj, pos, Quaternion.identity, parent.transform);
+                break;
+            case PathType.Normal:
+                break;
+            case PathType.Start:
+                Instantiate(startObj, pos, Quaternion.identity, parent.transform);
+                break;
+            case PathType.End:
+                Instantiate(waypointObj, pos, Quaternion.identity, parent.transform);
+                Instantiate(endObj, pos, Quaternion.identity, parent.transform);
+                break;
+            default:
+                break;
+        }
+    }
+
+    /* == ROADS == */
+
+
+    public void CreateBoundingBox(GameObject boxA, GameObject boxB, GameObject parent = null)
+    {
+        Vector3 delta = boxA.transform.position - boxB.transform.position;
+
+        // Well, I guess we're picking X scale...
+        float totalWidth = boxA.transform.localScale.x + delta.magnitude;
+        GameObject cube = GameObject.CreatePrimitive(PrimitiveType.Cube);
+        cube.transform.position = boxA.transform.position - delta / 2;
+        cube.GetComponent<Renderer>().material = roadMaterial;
+        if (parent != null) cube.transform.SetParent(parent.transform);
+
+        if (delta.x != 0) cube.transform.localScale = new Vector3(totalWidth, boxA.transform.localScale.y, boxA.transform.localScale.z);
+        else if (delta.z != 0) cube.transform.localScale = new Vector3(boxA.transform.localScale.x, boxA.transform.localScale.y, totalWidth);
     }
 }
-
-/* == WAYPOINTS == */

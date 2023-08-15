@@ -13,12 +13,12 @@ public class MapEditor : Editor
         DrawDefaultInspector();
 
         EditorGUILayout.BeginHorizontal();
-        if (GUILayout.Button("Clear Nodes")) script.ClearNodes();
+        if (GUILayout.Button("Clear All")) script.ClearAll();
         if (GUILayout.Button("Make Nodes")) script.MakeNodes();
         EditorGUILayout.EndHorizontal();
 
         EditorGUILayout.BeginHorizontal();
-        if (GUILayout.Button("Reset Path")) script.ResetPath();
+        if (GUILayout.Button("Clear Path")) script.ClearPath();
         EditorGUI.BeginDisabledGroup(script.PathExists || !script.NodesExist);
         if (GUILayout.Button("Make Path")) script.MakePath(new List<GameObject>(Selection.gameObjects));
         EditorGUI.EndDisabledGroup();

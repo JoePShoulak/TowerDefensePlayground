@@ -11,6 +11,7 @@ public class WinScreenUI : MonoBehaviour
     public void Next()
     {
         transition.FadeTo(GameManager.NextLevel);
+        Debug.Log("Calling load of scene: " + GameManager.NextLevel);
     }
 
     public void Menu()
