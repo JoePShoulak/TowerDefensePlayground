@@ -5,11 +5,14 @@ using UnityEngine.SceneManagement;
 
 public class MainMenu : MonoBehaviour
 {
+    [Header("Look Locations")]
     public Transform menu;
     public Transform credits;
+    public Transform levelSelect;
+
+    [Header("Camera Settings")]
     public Camera cam;
     public float camSpeed = 2f;
-    public Transition transition;
 
     private Transform target;
 
@@ -29,7 +32,7 @@ public class MainMenu : MonoBehaviour
 
     public void Play()
     {
-        transition.FadeTo("LevelSelect");
+        target = levelSelect;
     }
 
     public void Quit()
@@ -41,10 +44,9 @@ public class MainMenu : MonoBehaviour
     public void Credits()
     {
         target = credits;
-        // TODO: Make certain words in the credits be clickable linkts to things
     }
 
-    public void BackFromCredits()
+    public void Back()
     {
         target = menu;
     }

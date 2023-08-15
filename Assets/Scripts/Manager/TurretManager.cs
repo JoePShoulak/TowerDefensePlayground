@@ -21,6 +21,7 @@ public class TurretManager : MonoBehaviour
 
     public void OnValidate()
     {
+        // TODO: Probably more validation
         standardTurret.cost = Mathf.RoundToInt(Mathf.Max(0f, (float)standardTurret.cost));
         missileLauncher.cost = Mathf.RoundToInt(Mathf.Max(0f, (float)missileLauncher.cost));
         laserBeamer.cost = Mathf.RoundToInt(Mathf.Max(0f, (float)laserBeamer.cost));
