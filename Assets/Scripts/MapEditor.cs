@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
 
-[CustomEditor(typeof(MapMaker))]
-public class MapMakerEditor : Editor
+[CustomEditor(typeof(Map))]
+public class MapEditor : Editor
 {
     public override void OnInspectorGUI()
     {
-        MapMaker script = (MapMaker)target;
+        Map script = (Map)target;
 
         DrawDefaultInspector();
 
@@ -18,8 +18,10 @@ public class MapMakerEditor : Editor
         EditorGUILayout.EndHorizontal();
 
         EditorGUILayout.BeginHorizontal();
-        if (GUILayout.Button("Clear Path")) script.ClearPath();
-        EditorGUI.BeginDisabledGroup(script.PathExists);
+        EditorGUI.BeginDisabledGroup(!script.NodesExist);
+        if (GUILayout.Button("Reset Path")) script.ResetPath();
+        EditorGUI.EndDisabledGroup();
+        EditorGUI.BeginDisabledGroup(script.PathExists || !script.NodesExist);
         if (GUILayout.Button("Make Path")) script.MakePath(new List<GameObject>(Selection.gameObjects));
         EditorGUI.EndDisabledGroup();
         EditorGUILayout.EndHorizontal();
