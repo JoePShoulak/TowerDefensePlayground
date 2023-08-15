@@ -18,9 +18,7 @@ public class MapEditor : Editor
         EditorGUILayout.EndHorizontal();
 
         EditorGUILayout.BeginHorizontal();
-        EditorGUI.BeginDisabledGroup(!script.NodesExist);
         if (GUILayout.Button("Reset Path")) script.ResetPath();
-        EditorGUI.EndDisabledGroup();
         EditorGUI.BeginDisabledGroup(script.PathExists || !script.NodesExist);
         if (GUILayout.Button("Make Path")) script.MakePath(new List<GameObject>(Selection.gameObjects));
         EditorGUI.EndDisabledGroup();
