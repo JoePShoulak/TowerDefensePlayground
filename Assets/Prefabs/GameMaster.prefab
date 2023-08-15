@@ -71,7 +71,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyPrefab: {fileID: 6146365923120742511, guid: 33bec622b17791d45a22b0a2ff7fbe28, type: 3}
   waveList:
-  - waveDelay: 3
+  - waveDelay: 0
     enemyDelay: 1
     enemyCount: 2
     enemyObj: {fileID: 5089112124435979691, guid: 33bec622b17791d45a22b0a2ff7fbe28, type: 3}
@@ -552,7 +552,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 4231222756596387753}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: GameOverUI, Assembly-CSharp
         m_MethodName: Menu
         m_Mode: 1
@@ -4617,7 +4617,7 @@ GameObject:
   m_Component:
   - component: {fileID: 756047197481624518}
   - component: {fileID: 276778425977153674}
-  - component: {fileID: 4231222756596387753}
+  - component: {fileID: 5894506541978471367}
   m_Layer: 5
   m_Name: WinScreen
   m_TagString: Untagged
@@ -4671,7 +4671,7 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &4231222756596387753
+--- !u!114 &5894506541978471367
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -4680,7 +4680,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 7713415928331559604}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3496f91a11ce2ba42a2c29b60686cec5, type: 3}
+  m_Script: {fileID: 11500000, guid: f5360acfa7a02a34fbfdbde19e7f9e4d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   transition: {fileID: 1485260895399356754}
@@ -5064,7 +5064,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 4231222756596387753}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: GameOverUI, Assembly-CSharp
         m_MethodName: Retry
         m_Mode: 1
