@@ -21,6 +21,7 @@ public class Node : MonoBehaviour
     private Renderer rend;
     private Color startingColor;
     private GameObject rangePreview;
+    private float scaleFactor = 1f;
 
     BuildManager buildManager;
 
@@ -38,23 +39,16 @@ public class Node : MonoBehaviour
     {
         if (rangePreview != null) return;
 
-        GameObject gfx = null;
-        float range = 1f;
+        TurretBlueprint turrBlueprint;
 
-        if (buildManager.TurretToBuild != null)
-        {
-            gfx = buildManager.TurretToBuild.rangeGfx;
-            range = buildManager.TurretToBuild.prefab.GetComponent<Turret>().range;
-        }
-        else
-        {
-            gfx = blueprint.rangeGfx;
-            range = blueprint.prefab.GetComponent<Turret>().range;
-        }
+        if (buildManager.TurretToBuild != null) turrBlueprint = buildManager.TurretToBuild;
+        else turrBlueprint = blueprint;
+
+        GameObject gfx = turrBlueprint.rangeGfx;
+        float range = turrBlueprint.prefab.GetComponent<Turret>().range * scaleFactor;
 
         rangePreview = (GameObject)Instantiate(gfx, BuildPosition, Quaternion.identity);
         rangePreview.transform.localScale = Vector3.one * range;
-        Debug.Log(rangePreview);
     }
 
     public void PreviewTurret()
@@ -118,6 +112,8 @@ public class Node : MonoBehaviour
         isUpgraded = upgrading;
         EffectManager.Spawn(2f, blueprint.buildEffect, EffectPosition);
         turret = (GameObject)Instantiate(prefab, BuildPosition, Quaternion.identity);
+        turret.transform.localScale *= scaleFactor;
+        turret.GetComponent<Turret>().range *= scaleFactor;
 
         buildManager.TurretToBuild = null;
 
@@ -151,5 +147,7 @@ public class Node : MonoBehaviour
         buildManager = BuildManager.instance;
         rend = GetComponent<Renderer>();
         startingColor = rend.material.color;
+        scaleFactor = transform.localScale.y;
+
     }
 }
